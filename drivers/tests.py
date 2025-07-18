@@ -1,7 +1,8 @@
+from datetime import date
+
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
-from datetime import date
 
 from .models import Driver, Constructor
 
