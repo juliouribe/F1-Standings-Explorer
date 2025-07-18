@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # Local
     "accounts",
     "drivers",
+    "races",
 ]
 
 MIDDLEWARE = [
