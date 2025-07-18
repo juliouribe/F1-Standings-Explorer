@@ -14,7 +14,7 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     environment:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
-      - "DJANGO_SECRET_KEY=django-insecure-r$$@0w*5)5o2n$$cu#@+l#zc6wy%2zm1jo@ybvr5+r=wled#3b+o"
+      - "DJANGO_SECRET_KEY=django-insecure-r@0w*5)5o2ncu#@+l#zc6wy%2zm1jo@ybvr5+r=wled#3b+o"
 
 volumes:
   postgres_data:
