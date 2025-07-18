@@ -23,7 +23,24 @@ class Driver(models.Model):
 
     class Meta:
         indexes = [
-            models.Index(fields=["id"], name="id_index"),
+            models.Index(fields=["id"], name="driver_id_index"),
+        ]
+
+    def __str__(self):
+        return self.name
+
+
+class Team(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+    )
+    name = models.CharField(max_length=100)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["id"], name="team_id_index"),
         ]
 
     def __str__(self):
