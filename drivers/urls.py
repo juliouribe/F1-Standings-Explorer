@@ -1,8 +1,8 @@
 from django.urls import path
 
-from .views import DriverAPIView, TeamAPIView
+from .views import DriverAPIView, ConstructorAPIView
 
 urlpatterns = [
     path("drivers/", DriverAPIView.as_view(), name="drivers"),
-    path("teams/", TeamAPIView.as_view(), name="teams"),
+    path("constructors/", ConstructorAPIView.as_view(), name="constructors"),
 ]

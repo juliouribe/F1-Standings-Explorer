@@ -1,7 +1,7 @@
 from django.test import TestCase
 from datetime import date
 
-from .models import Driver, Team
+from .models import Driver, Constructor
 
 
 class DriverTests(TestCase):
@@ -19,12 +19,12 @@ class DriverTests(TestCase):
         self.assertEqual(self.driver.short_name, "JCU")
 
 
-class TeamTests(TestCase):
+class ConstructorTests(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.team = Team.objects.create(
+        cls.constructor = Constructor.objects.create(
             name="Uribe Racing",
         )
 
-    def test_team_fields(self):
-        self.assertEqual(self.team.name, "Uribe Racing")
+    def test_constructor_fields(self):
+        self.assertEqual(self.constructor.name, "Uribe Racing")

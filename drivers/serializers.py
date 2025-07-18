@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Driver, Team
+from .models import Driver, Constructor
 
 
 class DriverSerializer(serializers.ModelSerializer):
@@ -9,7 +9,7 @@ class DriverSerializer(serializers.ModelSerializer):
         fields = ("name", "dob", "short_name")
 
 
-class TeamSerializer(serializers.ModelSerializer):
+class ConstructorSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Team
+        model = Constructor
         fields = ("name",)

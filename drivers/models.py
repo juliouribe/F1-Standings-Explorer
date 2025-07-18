@@ -30,7 +30,7 @@ class Driver(models.Model):
         return self.name
 
 
-class Team(models.Model):
+class Constructor(models.Model):
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
@@ -40,7 +40,7 @@ class Team(models.Model):
 
     class Meta:
         indexes = [
-            models.Index(fields=["id"], name="team_id_index"),
+            models.Index(fields=["id"], name="constructor_id_index"),
         ]
 
     def __str__(self):

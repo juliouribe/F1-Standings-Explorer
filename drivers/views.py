@@ -1,7 +1,7 @@
 from rest_framework import generics
 
-from .models import Driver, Team
-from .serializers import DriverSerializer, TeamSerializer
+from .models import Driver, Constructor
+from .serializers import DriverSerializer, ConstructorSerializer
 
 
 class DriverAPIView(generics.ListAPIView):
@@ -9,6 +9,6 @@ class DriverAPIView(generics.ListAPIView):
     serializer_class = DriverSerializer
 
 
-class TeamAPIView(generics.ListAPIView):
-    queryset = Team.objects.all()
-    serializer_class = TeamSerializer
+class ConstructorAPIView(generics.ListAPIView):
+    queryset = Constructor.objects.all()
+    serializer_class = ConstructorSerializer
