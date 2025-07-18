@@ -25,7 +25,6 @@ class GrandPrix(models.Model):
         related_name="races",
     )
     date = models.DateField()
-    # TODO: Add relationship to race results
 
     class Meta:
         verbose_name = "Grand prix"
