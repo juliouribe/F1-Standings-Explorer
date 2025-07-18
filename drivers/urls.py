@@ -1,8 +1,8 @@
 from django.urls import path
 
-from .views import DriverListView, TeamListView
+from .views import DriverAPIView, TeamAPIView
 
 urlpatterns = [
-    path("", DriverListView.as_view(), name="drivers"),
-    path("teams/", TeamListView.as_view(), name="teams"),
+    path("drivers/", DriverAPIView.as_view(), name="drivers"),
+    path("teams/", TeamAPIView.as_view(), name="teams"),
 ]
