@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # 3rd party
     "rest_framework",
+    "corsheaders",
     # Local
     "accounts",
     "drivers",
@@ -52,6 +53,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -138,3 +140,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Custom User
 AUTH_USER_MODEL = "accounts.CustomUser"
+
+# CORS
+CORS_ALLOWED_ORIGINS = (
+    "http://localhost:3000",
+    "http://localhost:8000",
+)
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
