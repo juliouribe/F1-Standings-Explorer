@@ -5,7 +5,8 @@ BASE_URL = "http://localhost:8000"
 DRIVER_ENDPOINT = "/api/drivers/create/"
 CONSTRUCTOR_ENDPOINT = "/api/constructors/create/"
 RACE_TRACK_ENDPOINT = "/api/races/race_tracks/create/"
-API_URL = f"{BASE_URL}{RACE_TRACK_ENDPOINT}"
+GRAND_PRIX_ENDPOINT = "/api/races/grand_prix/create/"
+API_URL = f"{BASE_URL}{GRAND_PRIX_ENDPOINT}"
 
 
 def create_object(data):
@@ -52,8 +53,15 @@ def main():
         "name": "Albert Park Grand Prix Circuit",
         "country": "Australia",
     }
+    test_data_grand_prix = {
+        "track": {
+            "name": "Albert Park Grand Prix Circuit",
+            "country": "Australia",
+        },
+        "date": "2025-03-16",
+    }
 
-    response = create_object(test_data_race_track)
+    response = create_object(test_data_grand_prix)
 
 
 if __name__ == "__main__":
