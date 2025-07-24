@@ -7,3 +7,8 @@ from .serializers import RaceTrackSerializer
 class RaceTrackAPIView(generics.ListAPIView):
     queryset = RaceTrack.objects.all()
     serializer_class = RaceTrackSerializer
+
+
+class RaceTrackCreateView(generics.CreateAPIView):
+    queryset = RaceTrack.objects.all()
+    serializer_class = RaceTrackSerializer

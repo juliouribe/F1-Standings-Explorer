@@ -2,9 +2,10 @@ import requests
 import json
 
 BASE_URL = "http://localhost:8000"
-DRIVER_ENDPOINT = "/api/drivers/create"
-CONSTRUCTOR_ENDPOINT = "/api/constructors/create"
-API_URL = f"{BASE_URL}{CONSTRUCTOR_ENDPOINT}"
+DRIVER_ENDPOINT = "/api/drivers/create/"
+CONSTRUCTOR_ENDPOINT = "/api/constructors/create/"
+RACE_TRACK_ENDPOINT = "/api/races/race_tracks/create/"
+API_URL = f"{BASE_URL}{RACE_TRACK_ENDPOINT}"
 
 
 def create_object(data):
@@ -47,8 +48,12 @@ def main():
     test_data_constructor = {
         "name": "Williams",
     }
+    test_data_race_track = {
+        "name": "Albert Park Grand Prix Circuit",
+        "country": "Australia",
+    }
 
-    response = create_object(test_data_constructor)
+    response = create_object(test_data_race_track)
 
 
 if __name__ == "__main__":
