@@ -9,6 +9,11 @@ class DriverAPIView(generics.ListAPIView):
     serializer_class = DriverSerializer
 
 
+class DriverCreateView(generics.CreateAPIView):
+    queryset = Driver.objects.all()
+    serializer_class = DriverSerializer
+
+
 class ConstructorAPIView(generics.ListAPIView):
     queryset = Constructor.objects.all()
     serializer_class = ConstructorSerializer
