@@ -15,7 +15,7 @@ class Driver(models.Model):
         editable=False,
     )
     name = models.CharField(max_length=100)
-    dob = models.DateField()
+    dob = models.DateField(null=True, blank=True)
     short_name = models.CharField(
         max_length=3,
         validators=[validate_exactly_3_chars],
