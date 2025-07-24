@@ -11,7 +11,7 @@ FINISHED_STATUS_CHOICES = [
 
 
 class RaceTrack(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     country = models.CharField(max_length=200, blank=True, default="")
 
     def __str__(self):
@@ -24,11 +24,14 @@ class GrandPrix(models.Model):
         on_delete=models.CASCADE,
         related_name="races",
     )
-    date = models.DateField(null=True, blank=True)
+    date = models.DateField(null=True, blank=True, unique=True)
 
     class Meta:
         verbose_name = "Grand prix"
         verbose_name_plural = "Grand prix"
+        unique_together = [
+            ("track", "date"),
+        ]
 
     def __str__(self):
         return f"{self.date.year} {self.track.name}"
