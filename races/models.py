@@ -24,7 +24,7 @@ class GrandPrix(models.Model):
         on_delete=models.CASCADE,
         related_name="races",
     )
-    date = models.DateField(null=True, blank=True, unique=True)
+    date = models.DateField(null=True, blank=True)
 
     class Meta:
         verbose_name = "Grand prix"
