@@ -2,8 +2,9 @@ import requests
 import json
 
 BASE_URL = "http://localhost:8000"
-ENDPOINT = "/api/drivers/create"
-API_URL = f"{BASE_URL}{ENDPOINT}"
+DRIVER_ENDPOINT = "/api/drivers/create"
+CONSTRUCTOR_ENDPOINT = "/api/constructors/create"
+API_URL = f"{BASE_URL}{CONSTRUCTOR_ENDPOINT}"
 
 
 def create_object(data):
@@ -38,13 +39,16 @@ def create_object(data):
 
 
 def main():
-    test_data = {
+    test_data_driver = {
         "name": "Carlos Sainz",
         "dob": "1994-09-01",
         "short_name": "SAI",
     }
+    test_data_constructor = {
+        "name": "Williams",
+    }
 
-    response = create_object(test_data)
+    response = create_object(test_data_constructor)
 
 
 if __name__ == "__main__":

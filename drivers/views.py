@@ -17,3 +17,8 @@ class DriverCreateView(generics.CreateAPIView):
 class ConstructorAPIView(generics.ListAPIView):
     queryset = Constructor.objects.all()
     serializer_class = ConstructorSerializer
+
+
+class ConstructorCreateView(generics.CreateAPIView):
+    queryset = Constructor.objects.all()
+    serializer_class = ConstructorSerializer
