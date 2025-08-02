@@ -14,6 +14,9 @@ class RaceTrack(models.Model):
     name = models.CharField(max_length=200)
     country = models.CharField(max_length=200, blank=True, default="")
 
+    class Meta:
+        unique_together = [("name", "country")]
+
     def __str__(self):
         return f"{self.name} {self.country}"
 

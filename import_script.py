@@ -57,7 +57,7 @@ def main():
         "endpoint": RACE_TRACK_ENDPOINT,
     }
     test_data_grand_prix = {
-        "track": {
+        "race_track": {
             "name": "Albert Park Grand Prix Circuit",
             "country": "Australia",
         },
@@ -65,7 +65,7 @@ def main():
         "endpoint": GRAND_PRIX_ENDPOINT,
     }
 
-    response = create_object(test_data_race_track)
+    response = create_object(test_data_grand_prix)
 
 
 if __name__ == "__main__":
