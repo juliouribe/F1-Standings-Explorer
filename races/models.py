@@ -19,7 +19,7 @@ class RaceTrack(models.Model):
 
 
 class GrandPrix(models.Model):
-    track = models.ForeignKey(
+    race_track = models.ForeignKey(
         RaceTrack,
         on_delete=models.CASCADE,
         related_name="races",
@@ -30,11 +30,11 @@ class GrandPrix(models.Model):
         verbose_name = "Grand prix"
         verbose_name_plural = "Grand prix"
         unique_together = [
-            ("track", "date"),
+            ("race_track", "date"),
         ]
 
     def __str__(self):
-        return f"{self.date.year} {self.track.name}"
+        return f"{self.date.year} {self.race_track.name}"
 
 
 class RaceResult(models.Model):
