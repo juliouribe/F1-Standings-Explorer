@@ -6,16 +6,16 @@ DRIVER_ENDPOINT = "/api/drivers/create/"
 CONSTRUCTOR_ENDPOINT = "/api/constructors/create/"
 RACE_TRACK_ENDPOINT = "/api/races/race_tracks/create/"
 GRAND_PRIX_ENDPOINT = "/api/races/grand_prix/create/"
-API_URL = f"{BASE_URL}{GRAND_PRIX_ENDPOINT}"
 
 
 def create_object(data):
     headers = {
         "Content-Type": "application/json",
     }
+    url = f"{BASE_URL}{data["endpoint"]}"
 
     try:
-        response = requests.post(API_URL, json=data, headers=headers)
+        response = requests.post(url, json=data, headers=headers)
         print(f"Status Code: {response.status_code}")
         print(f"Response Headers: {dict(response.headers)}")
 
@@ -45,13 +45,16 @@ def main():
         "name": "Carlos Sainz",
         "dob": "1994-09-01",
         "short_name": "SAI",
+        "endpoint": DRIVER_ENDPOINT,
     }
     test_data_constructor = {
         "name": "Williams",
+        "endpoint": CONSTRUCTOR_ENDPOINT,
     }
     test_data_race_track = {
         "name": "Albert Park Grand Prix Circuit",
         "country": "Australia",
+        "endpoint": RACE_TRACK_ENDPOINT,
     }
     test_data_grand_prix = {
         "track": {
@@ -59,9 +62,10 @@ def main():
             "country": "Australia",
         },
         "date": "2025-03-16",
+        "endpoint": GRAND_PRIX_ENDPOINT,
     }
 
-    response = create_object(test_data_grand_prix)
+    response = create_object(test_data_driver)
 
 
 if __name__ == "__main__":
