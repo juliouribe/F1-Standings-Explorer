@@ -16,7 +16,7 @@ class BaseRaceTestCase(APITestCase):
             country="Italy",
         )
         cls.grand_prix = GrandPrix.objects.create(
-            track=cls.race_track,
+            race_track=cls.race_track,
             date=date.fromisoformat("2025-02-19"),
         )
 
@@ -33,7 +33,7 @@ class GrandPrixTests(BaseRaceTestCase):
         super().setUpTestData()
 
     def test_grand_prix_fields(self):
-        self.assertEqual(self.grand_prix.track, self.race_track)
+        self.assertEqual(self.grand_prix.race_track, self.race_track)
         self.assertEqual(self.grand_prix.date, date.fromisoformat("2025-02-19"))
 
 
@@ -45,7 +45,7 @@ class RaceResultTests(APITestCase):
             country="Monaco",
         )
         cls.grand_prix = GrandPrix.objects.create(
-            track=cls.race_track,
+            race_track=cls.race_track,
             date=date.fromisoformat("2025-05-25"),
         )
         cls.driver1 = Driver.objects.create(
