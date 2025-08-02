@@ -4,6 +4,15 @@ from .models import GrandPrix, RaceResult, RaceTrack
 
 
 class RaceTrackSerializer(serializers.ModelSerializer):
+    def create(self, validated_data):
+        instance, _ = self.Meta.model.objects.get_or_create(
+            name=validated_data["name"],
+            defaults={
+                "country": validated_data["country"],
+            },
+        )
+        return instance
+
     class Meta:
         model = RaceTrack
         fields = ("name", "country")

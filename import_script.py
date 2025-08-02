@@ -65,7 +65,7 @@ def main():
         "endpoint": GRAND_PRIX_ENDPOINT,
     }
 
-    response = create_object(test_data_driver)
+    response = create_object(test_data_race_track)
 
 
 if __name__ == "__main__":
