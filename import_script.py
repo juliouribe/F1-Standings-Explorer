@@ -109,7 +109,45 @@ def main():
         ],
     }
 
-    response = create_object(test_data_grand_prix)
+    test_data_grand_prix_two = {
+        "race_track": {
+            "name": "Yas Marina Circuit",
+            "country": "United Arab Emirates",
+        },
+        "date": "2021-12-12",
+        "endpoint": GRAND_PRIX_ENDPOINT,
+        "race_results": [
+            {
+                "driver": {
+                    "name": "Max Verstappen",
+                    "dob": "1997-09-30",
+                    "short_name": "VER",
+                },
+                "constructor": {
+                    "name": "Red Bull Racing",
+                },
+                "start_position": 1,
+                "finish_position": 1,
+                "finish_status": "finished",
+                "points": 25,
+            },
+            {
+                "driver": {
+                    "name": "Lewis Hamilton",
+                    "dob": "1985-01-07",
+                    "short_name": "HAM",
+                },
+                "constructor": {
+                    "name": "Mercedes",
+                },
+                "start_position": 2,
+                "finish_position": 2,
+                "finish_status": "finished",
+                "points": 18,
+            },
+        ],
+    }
+    create_object(test_data_grand_prix_two)
 
 
 if __name__ == "__main__":

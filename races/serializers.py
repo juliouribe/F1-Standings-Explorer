@@ -105,3 +105,9 @@ class GrandPrixSerializer(serializers.ModelSerializer):
             )
 
         return grand_prix
+
+
+class GrandPrixBySeasonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GrandPrix
+        fields = "__all__"

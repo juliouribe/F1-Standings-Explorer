@@ -5,6 +5,7 @@ from .views import (
     RaceTrackCreateView,
     GrandPrixAPIView,
     GrandPrixCreateView,
+    GrandPrixSearchView,
 )
 
 urlpatterns = [
@@ -14,4 +15,9 @@ urlpatterns = [
     ),
     path("grand_prix/", GrandPrixAPIView.as_view(), name="grand_prix"),
     path("grand_prix/create/", GrandPrixCreateView.as_view(), name="create_grand_prix"),
+    path(
+        "grand_prix/search/",
+        GrandPrixSearchView.as_view(),
+        name="grand_prix_search",
+    ),
 ]
