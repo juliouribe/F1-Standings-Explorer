@@ -108,6 +108,14 @@ class GrandPrixSerializer(serializers.ModelSerializer):
 
 
 class GrandPrixBySeasonSerializer(serializers.ModelSerializer):
+    race_track = RaceTrackSerializer()
+    race_results = RaceResultSerializer(many=True)
+
     class Meta:
         model = GrandPrix
-        fields = "__all__"
+        fields = (
+            "id",
+            "date",
+            "race_track",
+            "race_results",
+        )
