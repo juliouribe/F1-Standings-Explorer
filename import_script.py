@@ -58,11 +58,55 @@ def main():
     }
     test_data_grand_prix = {
         "race_track": {
-            "name": "Albert Park Grand Prix Circuit",
-            "country": "Australia",
+            "name": "Shanghai International Circuit",
+            "country": "China",
         },
-        "date": "2025-03-16",
+        "date": "2025-03-23",
         "endpoint": GRAND_PRIX_ENDPOINT,
+        "race_results": [
+            {
+                "driver": {
+                    "name": "Charles Leclerc",
+                    "dob": "1997-10-16",
+                    "short_name": "LEC",
+                },
+                "constructor": {
+                    "name": "Ferrari",
+                },
+                "start_position": 1,
+                "finish_position": 1,
+                "finish_status": "finished",
+                "points": 25,
+            },
+            {
+                "driver": {
+                    "name": "Lando Norris",
+                    "dob": "1999-11-13",
+                    "short_name": "NOR",
+                },
+                "constructor": {
+                    "name": "McLaren",
+                },
+                "start_position": 2,
+                "finish_position": 2,
+                "finish_status": "finished",
+                "points": 18,
+            },
+            {
+                "driver": {
+                    "name": "Lance Stroll",
+                    "dob": "1997-10-16",
+                    "short_name": "STR",
+                },
+                "constructor": {
+                    "name": "Aston Martin",
+                },
+                "start_position": 15,
+                "finish_position": 20,
+                "finish_status": "retired",
+                "points": 0,
+            },
+        ],
     }
 
     response = create_object(test_data_grand_prix)
