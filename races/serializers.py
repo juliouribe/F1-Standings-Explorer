@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import GrandPrix, RaceTrack
+from .models import GrandPrix, RaceTrack, RaceResult
 
 
 class RaceTrackSerializer(serializers.ModelSerializer):
@@ -14,7 +14,7 @@ class RaceTrackSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RaceTrack
-        fields = ("name", "country")
+        fields = "__all__"
 
 
 class GrandPrixSerializer(serializers.ModelSerializer):
@@ -25,7 +25,7 @@ class GrandPrixSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GrandPrix
-        fields = ("race_track", "date", "race_track_details")
+        fields = ("race_track", "race_track_details", "date")
 
     def create(self, validated_data):
         race_track_data = validated_data.pop("race_track")
@@ -36,8 +36,6 @@ class GrandPrixSerializer(serializers.ModelSerializer):
             defaults={},
         )
 
-        validated_data["race_track"] = race_track
-
         grand_prix, _ = GrandPrix.objects.get_or_create(
             race_track=race_track,
             date=validated_data.get("date"),
@@ -45,3 +43,22 @@ class GrandPrixSerializer(serializers.ModelSerializer):
         )
 
         return grand_prix
+
+
+class RaceResultSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = RaceResult
+        fields = "__all__"
+
+
+"""
+I want to hit an endpoint with all the grand prix data.
+I'll have data including drivers, construtors, race result info, etc.
+I would like to:
+- Create a new track if necessary
+- Create a new grand prix
+- Create new drivers if necessary
+- Create new teams if neccessary
+- Create several race results
+"""
