@@ -74,16 +74,16 @@ class RaceResult(models.Model):
 
     class Meta:
         # Ensure unique positions per grand prix
-        # unique_together = [
-        #     ("grand_prix", "start_position"),
-        #     ("grand_prix", "finish_position"),
-        # ]
+        unique_together = [
+            ("grand_prix", "start_position"),
+            ("grand_prix", "finish_position"),
+        ]
         # Ensure each driver only appears once per grand prix
-        # constraints = [
-        #     models.UniqueConstraint(
-        #         fields=["grand_prix", "driver"], name="unique_driver_per_grand_prix"
-        #     )
-        # ]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["grand_prix", "driver"], name="unique_driver_per_grand_prix"
+            )
+        ]
         ordering = ["grand_prix", "finish_position"]
 
     def __str__(self):
