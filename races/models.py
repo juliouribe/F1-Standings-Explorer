@@ -28,6 +28,7 @@ class GrandPrix(models.Model):
         related_name="races",
     )
     date = models.DateField(null=True, blank=True)
+    is_sprint = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Grand prix"
@@ -70,7 +71,6 @@ class RaceResult(models.Model):
         choices=FINISHED_STATUS_CHOICES,
     )
     points = models.PositiveIntegerField(default=0)
-    is_sprint = models.BooleanField(default=False)
 
     class Meta:
         # Ensure unique positions per grand prix
