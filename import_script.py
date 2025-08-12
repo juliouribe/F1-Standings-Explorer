@@ -28,6 +28,7 @@ def query_third_party(year, offset=None):
             races = data.get("MRData", {}).get("RaceTable", {}).get("Races", [])
             total_race_results = sum(len(race.get("Results", [])) for race in races)
             print(f"Retrieved {total_race_results} race results")
+            return data
         elif response.status_code == 400:
             print("❌ Validation errors:")
             print(json.dumps(response.json(), indent=2))
@@ -57,10 +58,11 @@ def parse_data(data) -> list:
         }
         for result in race.get("Results", []):
             driver_info = result.get("Driver")
-            parsed_race.append(
+            parsed_race["race_results"].append(
                 {
                     "driver": {
                         "name": driver_info.get("givenName", "")
+                        + " "
                         + driver_info.get("familyName", ""),
                         "dob": driver_info.get("dateOfBirth"),
                         "short_name": driver_info.get("code"),
@@ -74,6 +76,7 @@ def parse_data(data) -> list:
                     "points": result.get("points"),
                 }
             )
+        parsed_data.append(parsed_race)
 
     return parsed_data
 
@@ -112,6 +115,12 @@ def write_data(parsed_data):
         print(f"❌ Request error: {e}")
     except json.JSONDecodeError:
         print("❌ Invalid JSON response")
+
+
+def load_json_data(filename: str):
+    with open(filename, "r") as file:
+        data = json.load(file)
+    return data
 
 
 def main():
@@ -228,7 +237,8 @@ def main():
     Make sure it's synchronous to avoid potential issues in get or create calls
     """
 
-    data = query_third_party(2025)
+    # data = query_third_party(2025)
+    data = load_json_data("2025.json")
     parsed_data = parse_data(data)
 
 
