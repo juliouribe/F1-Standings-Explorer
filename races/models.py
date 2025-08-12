@@ -4,9 +4,11 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from drivers.models import Driver, Constructor
 
 FINISHED_STATUS_CHOICES = [
-    ("finished", "Finished the race"),
-    ("retired", "Did not finish the race for whatever reason"),
-    ("mechanical", "Mechanical failure"),
+    ("Finished", "Finished the race"),
+    ("Lapped", "Finished at least one lap behind"),
+    ("Retired", "Did not finish the race for whatever reason"),
+    ("M"
+    "echanical", "Mechanical failure"),
 ]
 
 
