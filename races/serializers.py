@@ -18,7 +18,6 @@ class RaceResultSerializer(serializers.ModelSerializer):
             "finish_position",
             "finish_status",
             "points",
-            "is_sprint",
         )
 
 
@@ -94,7 +93,6 @@ class GrandPrixSerializer(serializers.ModelSerializer):
             RaceResult.objects.get_or_create(
                 driver=driver,
                 grand_prix=grand_prix,
-                is_sprint=result.get("is_sprint", False),
                 defaults={
                     "constructor": constructor,
                     "start_position": result["start_position"],

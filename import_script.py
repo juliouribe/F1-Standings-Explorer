@@ -87,34 +87,33 @@ def write_data(parsed_data):
         "Content-Type": "application/json",
     }
 
-    try:
-        response = requests.post(
-            url,
-            json=parsed_data,
-            headers=headers,
-        )
-        print("Making write requests to Django Backend...")
-        print(f"Status Code: {response.status_code}")
-        print(f"Response Headers: {dict(response.headers)}")
+    for grand_prix_data in parsed_data:
+        try:
+            response = requests.post(
+                url,
+                json=grand_prix_data,
+                headers=headers,
+            )
+            print("Making write requests to Django Backend...")
+            print(f"Status Code: {response.status_code}")
+            print(f"Response Headers: {dict(response.headers)}")
 
-        if response.status_code == 201:
-            print("✅ Object created successfully!")
-            print(f"Created object: {response.json()}")
-        elif response.status_code == 400:
-            print("❌ Validation errors:")
-            print(json.dumps(response.json(), indent=2))
-        else:
-            print(f"❌ Unexpected response: {response.status_code}")
-            print(response.text)
+            if response.status_code == 201:
+                print("✅ Grand Prix successfully created!")
+                print(f"Grand Prix data: {response.json()}")
+            elif response.status_code == 400:
+                print("❌ Validation errors:")
+                print(json.dumps(response.json(), indent=2))
+            else:
+                print(f"❌ Unexpected response: {response.status_code}")
+                print(response.text)
 
-        return response
-
-    except requests.exceptions.ConnectionError:
-        print("❌ Connection error - make sure your Django server is running")
-    except requests.exceptions.RequestException as e:
-        print(f"❌ Request error: {e}")
-    except json.JSONDecodeError:
-        print("❌ Invalid JSON response")
+        except requests.exceptions.ConnectionError:
+            print("❌ Connection error - make sure your Django server is running")
+        except requests.exceptions.RequestException as e:
+            print(f"❌ Request error: {e}")
+        except json.JSONDecodeError:
+            print("❌ Invalid JSON response")
 
 
 def load_json_data(filename: str):
@@ -240,6 +239,7 @@ def main():
     # data = query_third_party(2025)
     data = load_json_data("2025.json")
     parsed_data = parse_data(data)
+    write_data(parsed_data)
 
 
 if __name__ == "__main__":
