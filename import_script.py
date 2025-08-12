@@ -10,8 +10,10 @@ GRAND_PRIX_ENDPOINT = "/api/races/grand_prix/create/"
 ERGAST_URL = "https://api.jolpi.ca/ergast/f1/"
 
 
-def query_third_party(year):
-    url = f"{ERGAST_URL}/{year}/results"
+def query_third_party(year, offset=None):
+    url = f"{ERGAST_URL}/{year}/results/"
+    if offset:
+        url += f"?offset={offset}"
     try:
         response = requests.get(
             url,
@@ -20,12 +22,12 @@ def query_third_party(year):
         print(f"Status Code: {response.status_code}")
         print(f"Response Headers: {dict(response.headers)}")
 
-        if response.status_code == 201:
+        if response.status_code == 200:
             print("Query completed successfully")
             data = response.json()
             races = data.get("MRData", {}).get("RaceTable", {}).get("Races", [])
             total_race_results = sum(len(race.get("Results", [])) for race in races)
-            print(f"Retrieve {total_race_results} race results")
+            print(f"Retrieved {total_race_results} race results")
         elif response.status_code == 400:
             print("❌ Validation errors:")
             print(json.dumps(response.json(), indent=2))
@@ -39,10 +41,39 @@ def query_third_party(year):
         print(f"❌ Request error: {e}")
     except json.JSONDecodeError:
         print("❌ Invalid JSON response")
-        print(response.text)
 
-def parse_data(data):
+
+def parse_data(data) -> list:
     parsed_data = []
+    races = data.get("MRData", {}).get("RaceTable", {}).get("Races", [])
+    for race in races:
+        parsed_race = {
+            "race_track": {
+                "name": race.get("Circuit", {}).get("circuitName", ""),
+                "country": race.get("Circuit", {}).get("Location", {}).get("country"),
+            },
+            "date": race.get("date", ""),
+            "race_results": [],
+        }
+        for result in race.get("Results", []):
+            driver_info = result.get("Driver")
+            parsed_race.append(
+                {
+                    "driver": {
+                        "name": driver_info.get("givenName", "")
+                        + driver_info.get("familyName", ""),
+                        "dob": driver_info.get("dateOfBirth"),
+                        "short_name": driver_info.get("code"),
+                    },
+                    "constructor": {
+                        "name": result.get("Constructor", {}).get("name", "")
+                    },
+                    "start_position": result.get("grid"),
+                    "finish_position": result.get("position"),
+                    "finish_status": result.get("status"),
+                    "points": result.get("points"),
+                }
+            )
 
     return parsed_data
 
@@ -81,7 +112,6 @@ def write_data(parsed_data):
         print(f"❌ Request error: {e}")
     except json.JSONDecodeError:
         print("❌ Invalid JSON response")
-        print(response.text)
 
 
 def main():
@@ -197,7 +227,9 @@ def main():
     Iterate over GPs and make repeated calls
     Make sure it's synchronous to avoid potential issues in get or create calls
     """
-    rez = query_third_party(test_data_grand_prix_two)
+
+    data = query_third_party(2025)
+    parsed_data = parse_data(data)
 
 
 if __name__ == "__main__":
