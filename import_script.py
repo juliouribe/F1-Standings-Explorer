@@ -179,7 +179,7 @@ def main():
 
         time.sleep(1)
 
-    with open("test_data.json", "w") as f:
+    with open(f"test_data{year}.json", "w") as f:
         json.dump(data, f)
 
     parsed_data = parse_data(data)
