@@ -24,8 +24,8 @@ def query_third_party(year, limit, offset=None):
 
         if response.status_code == 200:
             print("Query completed successfully")
-            data = response.json()
-            races = data.get("MRData", {}).get("RaceTable", {}).get("Races", [])
+            data = response.json().get("MRData", {})
+            races = data.get("RaceTable", {}).get("Races", [])
             total_race_results = sum(len(race.get("Results", [])) for race in races)
             print(f"Retrieved {total_race_results} race results")
             return data
@@ -45,20 +45,39 @@ def query_third_party(year, limit, offset=None):
 
 
 def parse_data(data) -> list:
+    # Each item in parsed_data is one Grand Prix with hopefully 20 race results.
     parsed_data = []
-    races = data.get("MRData", {}).get("RaceTable", {}).get("Races", [])
+    races = data.get("RaceTable", {}).get("Races", [])
     for race in races:
-        parsed_race = {
-            "race_track": {
-                "name": race.get("Circuit", {}).get("circuitName", ""),
-                "country": race.get("Circuit", {}).get("Location", {}).get("country"),
-            },
-            "date": race.get("date", ""),
-            "race_results": [],
-        }
+        """
+        Check if we already have a race for these results. Append to those
+        race results if we do. Otherwise create a new dict. It's possible to
+        have an existing race because of the way results get paginated.
+        """
+        date = race.get("date", "")
+        current_race = next(
+            (
+                existing_race
+                for existing_race in parsed_data
+                if existing_race["date"] == date
+            ),
+            None,
+        )
+        if current_race is None:
+            current_race = {
+                "race_track": {
+                    "name": race.get("Circuit", {}).get("circuitName", ""),
+                    "country": race.get("Circuit", {})
+                    .get("Location", {})
+                    .get("country"),
+                },
+                "date": date,
+                "race_results": [],
+            }
+
         for result in race.get("Results", []):
             driver_info = result.get("Driver")
-            parsed_race["race_results"].append(
+            current_race["race_results"].append(
                 {
                     "driver": {
                         "name": driver_info.get("givenName", "")
@@ -76,7 +95,7 @@ def parse_data(data) -> list:
                     "points": result.get("points"),
                 }
             )
-        parsed_data.append(parsed_race)
+        parsed_data.append(current_race)
 
     return parsed_data
 
@@ -244,9 +263,9 @@ def main():
         response = query_third_party(2025, limit, offset)
 
         if total is None:
-            total = response.get("MRData", {}).get("total", 0)
+            total = response.get("total", 0)
 
-        data.extend(response.get("MRData", {}).get("RaceTable", {}).get("Races", []))
+        data.extend(response.get("RaceTable", {}).get("Races", []))
         offset += limit
 
         if len(data) >= total:
