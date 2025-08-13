@@ -1,5 +1,7 @@
-import requests
+import argparse
 import json
+import requests
+import time
 
 BASE_URL = "http://localhost:8000"
 DRIVER_ENDPOINT = "/api/drivers/create/"
@@ -11,19 +13,18 @@ ERGAST_URL = "https://api.jolpi.ca/ergast/f1/"
 
 
 def query_third_party(year, limit, offset=None):
-    url = f"{ERGAST_URL}/{year}/results/?{limit}"
+    url = f"{ERGAST_URL}/{year}/results/?limit={limit}"
     if offset:
         url += f"&offset={offset}"
+
     try:
         response = requests.get(
             url,
         )
-        print("Making Third Party API call...")
+        print(f"Making Third Party API call to URL: {url}")
         print(f"Status Code: {response.status_code}")
-        print(f"Response Headers: {dict(response.headers)}")
 
         if response.status_code == 200:
-            print("Query completed successfully")
             data = response.json().get("MRData", {})
             races = data.get("RaceTable", {}).get("Races", [])
             total_race_results = sum(len(race.get("Results", [])) for race in races)
@@ -44,10 +45,9 @@ def query_third_party(year, limit, offset=None):
         print("❌ Invalid JSON response")
 
 
-def parse_data(data) -> list:
+def parse_data(races) -> list:
     # Each item in parsed_data is one Grand Prix with hopefully 20 race results.
     parsed_data = []
-    races = data.get("RaceTable", {}).get("Races", [])
     for race in races:
         """
         Check if we already have a race for these results. Append to those
@@ -115,7 +115,6 @@ def write_data(parsed_data):
             )
             print("Making write requests to Django Backend...")
             print(f"Status Code: {response.status_code}")
-            print(f"Response Headers: {dict(response.headers)}")
 
             if response.status_code == 201:
                 print("✅ Grand Prix successfully created!")
@@ -142,22 +141,46 @@ def load_json_data(filename: str):
 
 
 def main():
+    parser = argparse.ArgumentParser(
+        description="Process F1 data for a given year from Ergast API"
+    )
+    parser.add_argument("--year", type=int, help="Which year of F1 results to grab")
+    args = parser.parse_args()
+
     data = []
     offset = 0
-    limit = 40
-    total = None
+    count = 0
+    limit = 40  # the number of results per query.
+    total = None  # the number of total results for a given season.
+    year = args.year
 
     while True:
-        response = query_third_party(2025, limit, offset)
+        """
+        When we query we will find out the total number of race results after
+        the first call. We track this with count and total. Initially count is 0
+        and will continue until we hit the total. Updating count is tricky
+        because the race results are nested a few layers deep.
+        """
+        response = query_third_party(year, limit, offset)
 
         if total is None:
             total = response.get("total", 0)
 
-        data.extend(response.get("RaceTable", {}).get("Races", []))
-        offset += limit
+        # The number of results is kind of nested inside the race objects
+        races = response.get("RaceTable", {}).get("Races", [])
+        data.extend(races)
+        for race in races:
+            count += len(race.get("Results", []))
 
-        if len(data) >= total:
+        offset += limit
+        print(f"Currently on {offset}/{total} results")
+        if count >= total:
             break
+
+        time.sleep(1)
+
+    with open("test_data.json", "w") as f:
+        json.dump(data, f)
 
     parsed_data = parse_data(data)
     write_data(parsed_data)
