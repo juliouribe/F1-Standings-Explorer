@@ -164,7 +164,7 @@ def main():
         response = query_third_party(year, limit, offset)
 
         if total is None:
-            total = response.get("total", 0)
+            total = int(response.get("total", 0))
 
         # The number of results is kind of nested inside the race objects
         races = response.get("RaceTable", {}).get("Races", [])
