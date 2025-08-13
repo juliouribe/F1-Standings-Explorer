@@ -10,10 +10,10 @@ GRAND_PRIX_ENDPOINT = "/api/races/grand_prix/create/"
 ERGAST_URL = "https://api.jolpi.ca/ergast/f1/"
 
 
-def query_third_party(year, offset=None):
-    url = f"{ERGAST_URL}/{year}/results/"
+def query_third_party(year, limit, offset=None):
+    url = f"{ERGAST_URL}/{year}/results/?{limit}"
     if offset:
-        url += f"?offset={offset}"
+        url += f"&offset={offset}"
     try:
         response = requests.get(
             url,
@@ -235,9 +235,23 @@ def main():
     Iterate over GPs and make repeated calls
     Make sure it's synchronous to avoid potential issues in get or create calls
     """
+    data = []
+    offset = 0
+    limit = 40
+    total = None
 
-    # data = query_third_party(2025)
-    data = load_json_data("2025.json")
+    while True:
+        response = query_third_party(2025, limit, offset)
+
+        if total is None:
+            total = response.get("MRData", {}).get("total", 0)
+
+        data.extend(response.get("MRData", {}).get("RaceTable", {}).get("Races", []))
+        offset += limit
+
+        if len(data) >= total:
+            break
+
     parsed_data = parse_data(data)
     write_data(parsed_data)
 
