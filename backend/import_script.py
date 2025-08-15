@@ -145,6 +145,9 @@ def main():
         description="Process F1 data for a given year from Ergast API"
     )
     parser.add_argument("--year", type=int, help="Which year of F1 results to grab")
+    parser.add_argument(
+        "--filename", type=str, help="Optional filename to avoid API calls"
+    )
     args = parser.parse_args()
 
     data = []
@@ -153,37 +156,43 @@ def main():
     limit = 40  # the number of results per query.
     total = None  # the number of total results for a given season.
     year = args.year
+    filename = args.filename
 
-    while True:
-        """
-        When we query we will find out the total number of race results after
-        the first call. We track this with count and total. Initially count is 0
-        and will continue until we hit the total. Updating count is tricky
-        because the race results are nested a few layers deep.
-        """
-        response = query_third_party(year, limit, offset)
+    if filename is None:
+        if year is not None:
+            while True:
+                """
+                When we query we will find out the total number of race results after
+                the first call. We track this with count and total. Initially count is 0
+                and will continue until we hit the total. Updating count is tricky
+                because the race results are nested a few layers deep.
+                """
+                response = query_third_party(year, limit, offset)
 
-        if total is None:
-            total = int(response.get("total", 0))
+                if total is None:
+                    total = int(response.get("total", 0))
 
-        # The number of results is kind of nested inside the race objects
-        races = response.get("RaceTable", {}).get("Races", [])
-        data.extend(races)
-        for race in races:
-            count += len(race.get("Results", []))
+                # The number of results is kind of nested inside the race objects
+                races = response.get("RaceTable", {}).get("Races", [])
+                data.extend(races)
+                for race in races:
+                    count += len(race.get("Results", []))
 
-        offset += limit
-        print(f"Currently on {offset}/{total} results")
-        if count >= total:
-            break
+                offset += limit
+                print(f"Currently on {offset}/{total} results")
+                if count >= total:
+                    break
 
-        time.sleep(1)
+                time.sleep(1)
 
-    with open(f"test_data{year}.json", "w") as f:
-        json.dump(data, f)
+            with open(f"test_data{year}.json", "w") as f:
+                json.dump(data, f)
+    else:
+        data = load_json_data(filename)
 
-    parsed_data = parse_data(data)
-    write_data(parsed_data)
+    if len(data) >= 0:
+        parsed_data = parse_data(data)
+        write_data(parsed_data)
 
 
 if __name__ == "__main__":
