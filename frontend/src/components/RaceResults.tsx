@@ -9,7 +9,7 @@ const RaceResults = () => {
         const fetchRaces = async () => {
         try {
             setLoading(true);
-            const response = await fetch('http://127.0.0.1:8000/api/races/grand_prix/search/?year=2025');
+            const response = await fetch('http://127.0.0.1:8000/api/races/grand_prix/search/?year=2024');
             if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
             }
