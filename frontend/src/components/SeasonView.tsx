@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { GrandPrix } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 
-const RaceResults = () => {
+const SeasonView = () => {
   const [year, setYear] = useState("2025");
   const { isPending, error, data } = useQuery({
     queryKey: ["season", year],
@@ -72,4 +72,4 @@ const RaceResults = () => {
   );
 };
 
-export default RaceResults;
+export default SeasonView;

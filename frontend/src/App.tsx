@@ -1,12 +1,12 @@
 import "./App.css";
-import RaceResults from "./components/RaceResults";
+import SeasonView from "./components/SeasonView";
 import SeasonHeader from "./components/SeasonHeader";
 
 function App() {
   return (
     <div className="max-w-full">
       <SeasonHeader />
-      <RaceResults />
+      <SeasonView />
     </div>
   );
 }
