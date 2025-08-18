@@ -1,8 +1,10 @@
 const SeasonHeader = () => {
   return (
-    <div className="flex items-center">
+    <div className="p-6 flex justify-center items-center bg-black w-full">
       <img className="w-3xs" src="banner-f1.png" alt="" />
-      <h1 className="text-3xl">F1 Standings Explorer</h1>
+      <h1 className="text-7xl text-red-600 font-medium">
+        F1 Standings Explorer
+      </h1>
     </div>
   );
 };
