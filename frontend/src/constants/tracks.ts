@@ -40,4 +40,4 @@ export const grandPrixAbbreviations = {
   "Korean Grand Prix": "KOR",
   "Indian Grand Prix": "IND",
   "Las Vegas Grand Prix": "LVG",
-} as const;
+};

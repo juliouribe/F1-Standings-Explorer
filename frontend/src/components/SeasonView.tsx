@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import type { GrandPrix } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import SeasonTable from "./SeasonTable";
+import calculateStandings from "../utils/calcuateStandings";
 
 const SeasonView = () => {
   const [year, setYear] = useState("2025");
@@ -19,6 +20,9 @@ const SeasonView = () => {
   if (error)
     return <div className="p-4 text-red-600">Error: {error.message}</div>;
   const races = (data as GrandPrix[]) || [];
+  console.log(races);
+  const seasonSummary = useMemo(() => calculateStandings(races), races);
+  console.log(seasonSummary);
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
