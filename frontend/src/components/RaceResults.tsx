@@ -1,42 +1,32 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import type { GrandPrix } from "@/types";
+import { useQuery } from "@tanstack/react-query";
 
 const RaceResults = () => {
-  const [races, setRaces] = useState<GrandPrix[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
+  const [year, setYear] = useState("2025");
+  const { isPending, error, data } = useQuery({
+    queryKey: ["season", year],
+    queryFn: () =>
+      fetch(
+        `http://127.0.0.1:8000/api/races/grand_prix/search/?year=${year}`
+      ).then((res) => res.json()),
+  });
+  const races = (data as GrandPrix[]) || [];
 
-  useEffect(() => {
-    const fetchRaces = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(
-          "http://127.0.0.1:8000/api/races/grand_prix/search/?year=2024"
-        );
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data: GrandPrix[] = await response.json();
-        setRaces(data);
-      } catch (err) {
-        setError("Something went wrong!");
-        console.error("Error fetching races:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRaces();
-  }, []);
-
-  if (loading) return <div className="p-4">Loading race results...</div>;
-  if (error) return <div className="p-4 text-red-600">Error: {error}</div>;
-
-  console.log(races);
+  if (isPending) return <div className="p-4">Loading race results...</div>;
+  if (error)
+    return <div className="p-4 text-red-600">Error: {error.message}</div>;
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">F1 Race Results</h1>
+      <h1 className="text-3xl font-bold mb-6">{year} F1 Race Results</h1>
+      <div className="text-2xl font-bold mb-6">
+        <select value={year} onChange={(e) => setYear(e.target.value)}>
+          <option value={2023}>2023</option>
+          <option value={2024}>2024</option>
+          <option value={2025}>2025</option>
+        </select>
+      </div>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border border-gray-300">
           <thead className="bg-gray-50">
