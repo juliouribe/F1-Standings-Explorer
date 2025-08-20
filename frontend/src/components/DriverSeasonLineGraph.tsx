@@ -39,7 +39,7 @@ const DriverSeasonLineGraph = ({
     },
   };
 
-  return <Line data={data} options={options} />;
+  return <Line className="mb-6" data={data} options={options} />;
 };
 
 export default DriverSeasonLineGraph;

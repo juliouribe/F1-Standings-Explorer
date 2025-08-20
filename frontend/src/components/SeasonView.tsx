@@ -30,7 +30,7 @@ const SeasonView = () => {
     return <div className="p-4 text-red-600">Error: {error.message}</div>;
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
+    <div className="p-6 max-w-6xl mx-auto flex flex-col justify-center items-center ">
       <h1 className="text-3xl font-bold mb-6">{year} F1 Race Results</h1>
       <div className="text-2xl font-bold mb-6">
         <select value={year} onChange={(e) => setYear(e.target.value)}>
