@@ -21,8 +21,10 @@ const SeasonView = () => {
     return <div className="p-4 text-red-600">Error: {error.message}</div>;
   const races = (data as GrandPrix[]) || [];
   console.log(races);
-  const seasonSummary = useMemo(() => calculateStandings(races), races);
+  // const seasonSummary = useMemo(() => calculateStandings(races), races);
+  const seasonSummary = calculateStandings(races);
   console.log(seasonSummary);
+  console.log(seasonSummary.sortedDrivers);
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
