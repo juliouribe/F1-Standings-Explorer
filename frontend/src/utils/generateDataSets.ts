@@ -19,8 +19,9 @@ export function generateLineChartData(
 ): Record<string, any> {
   const drivers: string[] = processedData.sortedDrivers;
   const datasets = drivers.map((driverId, idx) => ({
-    label: processedData.drivers[driverId],
+    label: driverId,
     data: processedData.cumulativePoints[driverId],
+    fullName: processedData.drivers[driverId],
     borderColor: getLineGraphColor(idx),
     backgroundColor: getLineGraphColor(idx, 0.1),
     fill: true,
