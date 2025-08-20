@@ -11,7 +11,7 @@ function calculateStandings(races: GrandPrix[]): Record<string, any> {
   for (const [idx, race] of races.entries()) {
     // TODO: replace this after uploading round info and writing the acronym function.
     const round = idx + 1;
-    const acronym = race.race_track.name.slice(3);
+    const acronym = `${round}${race.race_track.name.slice(0, 3)}`;
     raceInfo.push({
       round: round,
       name: race.race_track.name,
