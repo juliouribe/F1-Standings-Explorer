@@ -20,7 +20,7 @@ const SeasonView = () => {
   const races = (data as GrandPrix[]) || [];
   const processedData = useMemo(() => calculateStandings(races), [races]);
   const lineGraphData = useMemo(
-    () => generateLineChartData(processedData),
+    () => generateLineChartData(processedData, 'driver', year),
     [processedData]
   );
 
