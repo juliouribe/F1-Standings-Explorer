@@ -3,6 +3,7 @@ import type { GrandPrix } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import SeasonTable from "./SeasonTable";
 import calculateStandings from "../utils/calcuateStandings";
+import { generateLineChartData } from "../utils/generateDataSets";
 
 const SeasonView = () => {
   const [year, setYear] = useState("2025");
@@ -16,15 +17,16 @@ const SeasonView = () => {
         return res.json();
       }),
   });
+  const races = (data as GrandPrix[]) || [];
+  const processedData = useMemo(() => calculateStandings(races), [races]);
+  const lineGraphData = useMemo(
+    () => generateLineChartData(processedData),
+    [processedData]
+  );
+
   if (isPending) return <div className="p-4">Loading race results...</div>;
   if (error)
     return <div className="p-4 text-red-600">Error: {error.message}</div>;
-  const races = (data as GrandPrix[]) || [];
-  console.log(races);
-  // const seasonSummary = useMemo(() => calculateStandings(races), races);
-  const seasonSummary = calculateStandings(races);
-  console.log(seasonSummary);
-  console.log(seasonSummary.sortedDrivers);
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
