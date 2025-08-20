@@ -2,25 +2,21 @@ import { Line } from "react-chartjs-2";
 import "../chartConfig.js";
 
 interface DriverSeasonLineGraphProps {
-  lineGraphData: Record<string, any>;
-  championship: string;
+  driverLineGraphData: Record<string, any>;
   year: string;
 }
 
 const DriverSeasonLineGraph = ({
-  lineGraphData,
-  championship,
+  driverLineGraphData,
   year,
 }: DriverSeasonLineGraphProps) => {
-  const title =
-    championship == "driver"
-      ? `Driver's Championship ${year}`
-      : `Constructor's Chamiponship ${year}`;
+  const title = `Driver's Championship ${year}`;
 
   const data = {
-    labels: lineGraphData.labels,
-    datasets: lineGraphData.datasets,
+    labels: driverLineGraphData.labels,
+    datasets: driverLineGraphData.datasets,
   };
+
   const options = {
     responsive: true,
     plugins: {
@@ -42,6 +38,7 @@ const DriverSeasonLineGraph = ({
       },
     },
   };
+
   return <Line data={data} options={options} />;
 };
 

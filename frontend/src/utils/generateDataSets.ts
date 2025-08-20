@@ -14,7 +14,7 @@ function getLineGraphColor(idx: number, alpha = 1) {
   return colors[idx % colors.length];
 }
 
-export function generateLineChartData(
+export function generateDriverLineChartData(
   processedData: Record<string, any>
 ): Record<string, any> {
   const drivers: string[] = processedData.sortedDrivers;
