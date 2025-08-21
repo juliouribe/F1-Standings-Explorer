@@ -3,8 +3,12 @@ import type { GrandPrix } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import SeasonTable from "./SeasonTable";
 import calculateStandings from "../utils/calcuateStandings";
-import { generateDriverLineChartData, generateConstructorLineChartData } from "../utils/generateDataSets";
+import {
+  generateDriverLineChartData,
+  generateConstructorLineChartData,
+} from "../utils/generateDataSets";
 import DriverSeasonLineGraph from "./DriverSeasonLineGraph";
+import ConstructorLineGraph from "./ConstructorLineGraph";
 
 const SeasonView = () => {
   const [year, setYear] = useState("2025");
@@ -45,6 +49,10 @@ const SeasonView = () => {
       </div>
       <DriverSeasonLineGraph
         driverLineGraphData={driverLineGraphData}
+        year={year}
+      />
+      <ConstructorLineGraph
+        constructorLineGraphData={constructorLineGraphData}
         year={year}
       />
       <SeasonTable races={races} />
