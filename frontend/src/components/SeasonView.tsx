@@ -3,7 +3,7 @@ import type { GrandPrix } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import SeasonTable from "./SeasonTable";
 import calculateStandings from "../utils/calcuateStandings";
-import { generateDriverLineChartData } from "../utils/generateDataSets";
+import { generateDriverLineChartData, generateConstructorLineChartData } from "../utils/generateDataSets";
 import DriverSeasonLineGraph from "./DriverSeasonLineGraph";
 
 const SeasonView = () => {
@@ -22,6 +22,10 @@ const SeasonView = () => {
   const processedData = useMemo(() => calculateStandings(races), [races]);
   const driverLineGraphData = useMemo(
     () => generateDriverLineChartData(processedData),
+    [processedData]
+  );
+  const constructorLineGraphData = useMemo(
+    () => generateConstructorLineChartData(processedData),
     [processedData]
   );
 

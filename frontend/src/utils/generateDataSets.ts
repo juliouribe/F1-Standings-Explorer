@@ -33,3 +33,23 @@ export function generateDriverLineChartData(
     datasets,
   };
 }
+
+export function generateConstructorLineChartData(
+  processedData: Record<string, any>
+): Record<string, any> {
+  const constructors: string[] = processedData.sortedConstructors;
+  const datasets = constructors.map((constructor, idx) => ({
+    label: constructor,
+    data: processedData.constructorPoints[constructor],
+    fullName: constructor,
+    borderColor: getLineGraphColor(idx),
+    backgroundColor: getLineGraphColor(idx, 0.1),
+    fill: true,
+    tension: 0.1,
+  }));
+
+  return {
+    labels: processedData.raceLabels,
+    datasets,
+  };
+}
