@@ -74,6 +74,8 @@ class GrandPrixSerializer(serializers.ModelSerializer):
         )
         grand_prix, _ = GrandPrix.objects.get_or_create(
             race_track=race_track,
+            round=validated_data.get("round"),
+            name=validated_data.get("name"),
             date=validated_data.get("date"),
             defaults=validated_data,
         )

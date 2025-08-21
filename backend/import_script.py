@@ -1,3 +1,11 @@
+"""
+Import script for querying third party API and writing to Django Backend.
+How to run:
+python import_script.py --year=2025  // queries API and creates test_data2025.json
+python import_script.py --filename=test_data2024.json // reads from file to populate backend.
+
+"""
+
 import argparse
 import json
 import requests
@@ -65,6 +73,8 @@ def parse_data(races) -> list:
         )
         if current_race is None:
             current_race = {
+                "round": race.get("round", 0),
+                "name": race.get("raceName", ""),
                 "race_track": {
                     "name": race.get("Circuit", {}).get("circuitName", ""),
                     "country": race.get("Circuit", {})
