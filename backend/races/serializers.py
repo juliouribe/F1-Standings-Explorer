@@ -49,6 +49,8 @@ class GrandPrixSerializer(serializers.ModelSerializer):
     class Meta:
         model = GrandPrix
         fields = (
+            "round",
+            "name",
             "date",
             "race_track",
             "race_track_details",
@@ -113,6 +115,8 @@ class GrandPrixBySeasonSerializer(serializers.ModelSerializer):
         model = GrandPrix
         fields = (
             "id",
+            "round",
+            "name",
             "date",
             "race_track",
             "race_results",
