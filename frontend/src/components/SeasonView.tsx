@@ -41,7 +41,7 @@ const SeasonView = () => {
 
   return (
     <div className="p-6 max-w-6xl mx-auto flex flex-col justify-center items-center ">
-      <div className="flex space-x-4 text-2xl font-bold">
+      <div className="flex space-x-4 text-xl font-bold">
         <ChampionshipToggleSwitch isTeam={isTeam} setIsTeam={setIsTeam} />
         <select value={year} onChange={(e) => setYear(e.target.value)}>
           <option value={2023}>2023</option>
