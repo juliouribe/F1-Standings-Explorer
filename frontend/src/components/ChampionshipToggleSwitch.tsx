@@ -7,11 +7,11 @@ interface ToggleSwitchProps {
 
 function ChampionshipToggleSwitch({ isTeam, setIsTeam }: ToggleSwitchProps) {
   return (
-    <div className="p-8">
+    <div className="p-2">
       <div className="flex items-center space-x-4">
         {/* Driver Text */}
         <span
-          className={`text-md font-medium ${
+          className={`text-xl font-medium ${
             !isTeam ? "text-black" : "text-gray-400"
           }`}
         >
@@ -20,7 +20,7 @@ function ChampionshipToggleSwitch({ isTeam, setIsTeam }: ToggleSwitchProps) {
         {/* Toggle Switch */}
         <div
           className={`relative inline-flex h-6 w-11 items-center rounded-full cursor-pointer transition-colors duration-200 ${
-            isTeam ? "bg-black" : "bg-gray-400"
+            isTeam ? "bg-red-600" : "bg-gray-400"
           }`}
           onClick={() => setIsTeam(!isTeam)}
         >
@@ -32,7 +32,7 @@ function ChampionshipToggleSwitch({ isTeam, setIsTeam }: ToggleSwitchProps) {
         </div>
         {/* Constructor Text */}
         <span
-          className={`text-md font-medium ${
+          className={`text-xl font-medium ${
             isTeam ? "text-black" : "text-gray-400"
           }`}
         >
