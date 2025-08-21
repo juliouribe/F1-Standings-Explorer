@@ -1,4 +1,4 @@
-export const grandPrixAbbreviations = {
+export const grandPrixAbbreviations: Record<string, string> = {
   "Bahrain Grand Prix": "BHR",
   "Emilia Romagna Grand Prix": "EMI",
   "Portuguese Grand Prix": "POR",

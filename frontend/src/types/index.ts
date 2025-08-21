@@ -24,6 +24,8 @@ export interface RaceResult {
 
 export interface GrandPrix {
   id: number;
+  name: string;
+  round: number;
   date: string;
   race_track: RaceTrack;
   race_results: RaceResult[];
@@ -31,9 +33,9 @@ export interface GrandPrix {
 
 export interface DriverSummary {
   [track: string]: number;
-  total: number
+  total: number;
 }
 
 export interface SummaryResults {
-    [driver_name: string]: DriverSummary[];
-};
+  [driver_name: string]: DriverSummary[];
+}

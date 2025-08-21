@@ -1,4 +1,5 @@
 import type { GrandPrix } from "@/types";
+import { abbreviateGrandPrixName } from "./stringUtils";
 
 // TODO: Write an interface to replace Record<string, any> with something descriptive.
 
@@ -8,12 +9,10 @@ function calculateStandings(races: GrandPrix[]): Record<string, any> {
   const raceInfo = [];
 
   // Iterate over races and find how many races and drivers there are.
-  for (const [idx, race] of races.entries()) {
-    // TODO: replace this after uploading round info and writing the acronym function.
-    const round = idx + 1;
-    const acronym = `${round}${race.race_track.name.slice(0, 3)}`;
+  for (const race of races) {
+    const acronym = abbreviateGrandPrixName(race.name);
     raceInfo.push({
-      round: round,
+      round: race.round,
       name: race.race_track.name,
       acronym: acronym,
     });
