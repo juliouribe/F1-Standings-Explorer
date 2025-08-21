@@ -7,8 +7,7 @@ FINISHED_STATUS_CHOICES = [
     ("Finished", "Finished the race"),
     ("Lapped", "Finished at least one lap behind"),
     ("Retired", "Did not finish the race for whatever reason"),
-    ("M"
-    "echanical", "Mechanical failure"),
+    ("M" "echanical", "Mechanical failure"),
 ]
 
 
@@ -24,6 +23,7 @@ class RaceTrack(models.Model):
 
 
 class GrandPrix(models.Model):
+    name = models.CharField(max_length=200, blank=True, default="")
     race_track = models.ForeignKey(
         RaceTrack,
         on_delete=models.CASCADE,
@@ -31,6 +31,7 @@ class GrandPrix(models.Model):
     )
     date = models.DateField(null=True, blank=True)
     is_sprint = models.BooleanField(default=False)
+    round = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = "Grand prix"
