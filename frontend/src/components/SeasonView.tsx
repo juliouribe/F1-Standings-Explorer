@@ -9,9 +9,11 @@ import {
 } from "../utils/generateDataSets";
 import DriverSeasonLineGraph from "./DriverSeasonLineGraph";
 import ConstructorLineGraph from "./ConstructorLineGraph";
+import ChampionshipToggleSwitch from "./ChampionshipToggleSwitch";
 
 const SeasonView = () => {
   const [year, setYear] = useState("2025");
+  const [isTeam, setIsTeam] = useState(false);
   const { isPending, error, data } = useQuery({
     queryKey: ["season", year],
     queryFn: () =>
@@ -46,15 +48,19 @@ const SeasonView = () => {
           <option value={2024}>2024</option>
           <option value={2025}>2025</option>
         </select>
+        <ChampionshipToggleSwitch isTeam={isTeam} setIsTeam={setIsTeam} />
       </div>
-      <DriverSeasonLineGraph
-        driverLineGraphData={driverLineGraphData}
-        year={year}
-      />
-      <ConstructorLineGraph
-        constructorLineGraphData={constructorLineGraphData}
-        year={year}
-      />
+      {isTeam ? (
+        <ConstructorLineGraph
+          constructorLineGraphData={constructorLineGraphData}
+          year={year}
+        />
+      ) : (
+        <DriverSeasonLineGraph
+          driverLineGraphData={driverLineGraphData}
+          year={year}
+        />
+      )}
       <SeasonTable races={races} />
     </div>
   );
