@@ -34,7 +34,7 @@ function calculateStandings(
   // These matrices are formatted for data visualizations using Chart JS.
   const positionMatrix: Record<string, number[]> = {}; // driverID -> array of points per race
   const driverSeenTemplate: Record<string, boolean> = {}; // driverID -> boolean
-  const cumulativeMatrix: Record<string, number[]> = {}; // driverID -> array of cumalitive points
+  const cumulativeMatrix: Record<string, number[]> = {}; // driverID -> array of cumulative points
   Object.keys(driverNameMap).forEach((driverID) => {
     positionMatrix[driverID] = new Array(racesFiltered.length + 1).fill(""); // one extra for the total
     cumulativeMatrix[driverID] = new Array(racesFiltered.length).fill(0);
@@ -72,15 +72,14 @@ function calculateStandings(
         constructorMatrix[constructor][idx] = prevTeamTotal + result.points;
         teamSeen[constructor] = true;
       }
-
-      // On the last loop, set the total using the last cumalitve value.
-      if (idx == racesFiltered.length - 1)
-        positionMatrix[driverID][idx + 1] = cumulativeMatrix[driverID][idx];
     }
     // When a driver doesn't have a race result, preserve their previous cumulative points total.
     Object.entries(driverSeen).map(([driverID, seen]) => {
       const prevTotal = idx > 0 ? cumulativeMatrix[driverID][idx - 1] : 0;
       if (!seen) cumulativeMatrix[driverID][idx] = prevTotal;
+      // On the last loop, set the total using the last cumulative value.
+      if (idx == racesFiltered.length - 1)
+        positionMatrix[driverID][idx + 1] = cumulativeMatrix[driverID][idx];
     });
   }
 
