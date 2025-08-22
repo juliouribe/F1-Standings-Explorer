@@ -1,13 +1,13 @@
-import type { GrandPrix } from "@/types";
+import type { GrandPrix, ProcessedData } from "@/types";
 import { abbreviateGrandPrixName } from "./stringUtils";
 
 // TODO: Write an interface to replace Record<string, any> with something descriptive.
 
-function calculateStandings(races: GrandPrix[]): Record<string, any> {
+function calculateStandings(races: GrandPrix[]): ProcessedData {
   const driverNameMap: Record<string, string> = {};
   const constructorMap = new Set<string>();
   const raceLabels = [];
-  const raceInfo = [];
+  const raceInfo: Record<string, any>[] = [];
 
   // Iterate over races and find how many races and drivers there are.
   for (const race of races) {
@@ -27,10 +27,10 @@ function calculateStandings(races: GrandPrix[]): Record<string, any> {
 
   // Build out matrices to hold driver points across races.
   // These matrices are formatted for data visualizations using Chart JS.
-  const pointsMatrix: Record<string, number[]> = {}; // driverID -> array of points per race
+  const positionMatrix: Record<string, number[]> = {}; // driverID -> array of points per race
   const cumulativeMatrix: Record<string, number[]> = {}; // driverID -> array of cumalitive points
   Object.keys(driverNameMap).forEach((driverID) => {
-    pointsMatrix[driverID] = new Array(races.length + 1).fill(""); // one extra for the total
+    positionMatrix[driverID] = new Array(races.length + 1).fill(""); // one extra for the total
     cumulativeMatrix[driverID] = new Array(races.length).fill(0);
   });
 
@@ -50,7 +50,7 @@ function calculateStandings(races: GrandPrix[]): Record<string, any> {
     for (const result of race.race_results) {
       const driverID = result.driver.short_name;
       const constructor = result.constructor.name;
-      pointsMatrix[driverID][idx] = result.finish_position;
+      positionMatrix[driverID][idx] = result.finish_position;
       const prevTotal = idx > 0 ? cumulativeMatrix[driverID][idx - 1] : 0;
       cumulativeMatrix[driverID][idx] = prevTotal + result.points;
 
@@ -66,7 +66,7 @@ function calculateStandings(races: GrandPrix[]): Record<string, any> {
 
       // On the last loop, set the total using the last cumalitve value.
       if (idx == races.length - 1)
-        pointsMatrix[driverID][idx + 1] = cumulativeMatrix[driverID][idx];
+        positionMatrix[driverID][idx + 1] = cumulativeMatrix[driverID][idx];
     }
   }
 
@@ -84,9 +84,10 @@ function calculateStandings(races: GrandPrix[]): Record<string, any> {
 
   return {
     raceLabels,
+    raceInfo,
     sortedDrivers,
     drivers: driverNameMap,
-    pointsPerRace: pointsMatrix,
+    positionPerRace: positionMatrix,
     cumulativePoints: cumulativeMatrix,
     sortedConstructors,
     constructorPoints: constructorMatrix,
