@@ -60,7 +60,7 @@ const SeasonView = () => {
           year={year}
         />
       )}
-      <SeasonTable races={races} />
+      <SeasonTable processedData={processedData} />
     </div>
   );
 };
