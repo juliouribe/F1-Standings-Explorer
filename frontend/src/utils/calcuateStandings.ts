@@ -1,16 +1,24 @@
 import type { GrandPrix, ProcessedData } from "@/types";
-import { abbreviateGrandPrixName } from "./stringUtils";
+import { abbreviateGrandPrixName, isDateBetween } from "./stringUtils";
 
 // TODO: Write an interface to replace Record<string, any> with something descriptive.
 
-function calculateStandings(races: GrandPrix[]): ProcessedData {
+function calculateStandings(
+  races: GrandPrix[],
+  start: string,
+  end: string
+): ProcessedData {
   const driverNameMap: Record<string, string> = {};
   const constructorMap = new Set<string>();
   const raceLabels = [];
   const raceInfo: Record<string, any>[] = [];
 
+  const racesFiltered = races.filter((race) =>
+    isDateBetween(race.date, start, end)
+  );
+
   // Iterate over races and find how many races and drivers there are.
-  for (const race of races) {
+  for (const race of racesFiltered) {
     const acronym = abbreviateGrandPrixName(race.name);
     raceInfo.push({
       round: race.round,
@@ -30,8 +38,8 @@ function calculateStandings(races: GrandPrix[]): ProcessedData {
   const positionMatrix: Record<string, number[]> = {}; // driverID -> array of points per race
   const cumulativeMatrix: Record<string, number[]> = {}; // driverID -> array of cumalitive points
   Object.keys(driverNameMap).forEach((driverID) => {
-    positionMatrix[driverID] = new Array(races.length + 1).fill(""); // one extra for the total
-    cumulativeMatrix[driverID] = new Array(races.length).fill(0);
+    positionMatrix[driverID] = new Array(racesFiltered.length + 1).fill(""); // one extra for the total
+    cumulativeMatrix[driverID] = new Array(racesFiltered.length).fill(0);
   });
 
   // Build out matrix for constructors cumulative points.
@@ -41,11 +49,12 @@ function calculateStandings(races: GrandPrix[]): ProcessedData {
   const constructorMatrix: Record<string, number[]> = {};
   const teamSeenTemplate: Record<string, boolean> = {};
   constructorMap.forEach((constructor) => {
-    constructorMatrix[constructor] = new Array(races.length).fill(0);
+    constructorMatrix[constructor] = new Array(racesFiltered.length).fill(0);
     teamSeenTemplate[constructor] = false;
   });
 
-  for (const [idx, race] of races.entries()) {
+  for (const [idx, race] of racesFiltered.entries()) {
+    // if (!isDateBetween(race.date, start, end)) continue;
     const teamSeen = { ...teamSeenTemplate };
     for (const result of race.race_results) {
       const driverID = result.driver.short_name;
@@ -65,7 +74,7 @@ function calculateStandings(races: GrandPrix[]): ProcessedData {
       }
 
       // On the last loop, set the total using the last cumalitve value.
-      if (idx == races.length - 1)
+      if (idx == racesFiltered.length - 1)
         positionMatrix[driverID][idx + 1] = cumulativeMatrix[driverID][idx];
     }
   }

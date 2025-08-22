@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { GrandPrix } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import PositionsTable from "./PositionsTable";
@@ -15,7 +15,7 @@ import ChampionshipToggleSwitch from "./ChampionshipToggleSwitch";
 const SeasonView = () => {
   const [isTeam, setIsTeam] = useState(false);
   const [year, setYear] = useState("2025");
-  const [startDate, setstartDate] = useState("");
+  const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const { isPending, error, data } = useQuery({
     queryKey: ["season", year],
@@ -28,7 +28,18 @@ const SeasonView = () => {
       }),
   });
   const races = (data as GrandPrix[]) || [];
-  const processedData = useMemo(() => calculateStandings(races), [races]);
+
+  useEffect(() => {
+    if (races.length > 0) {
+      setStartDate(races[0].date);
+      setEndDate(races[races.length - 1].date);
+    }
+  }, [races]);
+
+  const processedData = useMemo(
+    () => calculateStandings(races, startDate, endDate),
+    [races, startDate, endDate]
+  );
   const driverLineGraphData = useMemo(
     () => generateDriverLineChartData(processedData),
     [processedData]
@@ -52,8 +63,8 @@ const SeasonView = () => {
           <option value={2025}>2025</option>
         </select>
         <select
-          value={races[0].date}
-          onChange={(e) => setstartDate(e.target.value)}
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
         >
           {races.map((race) => (
             <option value={race.date} key={`s${race.round}`}>
@@ -61,10 +72,7 @@ const SeasonView = () => {
             </option>
           ))}
         </select>
-        <select
-          value={races[races.length - 1].date}
-          onChange={(e) => setEndDate(e.target.value)}
-        >
+        <select value={endDate} onChange={(e) => setEndDate(e.target.value)}>
           {races.map((race) => (
             <option value={race.date} key={`e${race.round}`}>
               {buildRaceDateString(race)}
