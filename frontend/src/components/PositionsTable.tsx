@@ -19,8 +19,11 @@ const PositionsTable = ({
               <th className="px-2 py-2 text-center text-xs font-medium text-gray-500 uppercase">
                 Driver
               </th>
-              {raceInfo.map((race) => (
-                <th className="px-2 py-2 text-xs text-center font-medium text-gray-500 uppercase tracking-wider">
+              {raceInfo.map((race, idx) => (
+                <th
+                  className="px-2 py-2 text-xs text-center font-medium text-gray-500 uppercase tracking-wider"
+                  key={`header${idx}`}
+                >
                   {race.acronym}
                 </th>
               ))}
@@ -32,7 +35,7 @@ const PositionsTable = ({
           <tbody className="bg-white divide-y divide-gray-200">
             {sortedDrivers.map((driver, idx) => {
               return (
-                <tr key={idx} className="hover:bg-gray-50">
+                <tr key={`driverRow${idx}`} className="hover:bg-gray-50">
                   <td className="px-2 py-2 whitespace-nowrap text-sm text-center font-medium text-gray-900">
                     {idx + 1}
                   </td>
@@ -40,7 +43,10 @@ const PositionsTable = ({
                     {drivers[driver] || "N/A"}
                   </td>
                   {raceInfo.map((_, raceIdx) => (
-                    <td className="px-2 py-2 whitespace-nowrap text-sm text-center text-gray-500">
+                    <td
+                      key={`pos${raceIdx}`}
+                      className="px-2 py-2 whitespace-nowrap text-sm text-center text-gray-500"
+                    >
                       {positionPerRace[driver][raceIdx] || ""}
                     </td>
                   ))}
