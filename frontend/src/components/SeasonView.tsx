@@ -63,13 +63,13 @@ const SeasonView = () => {
 
   return (
     <div className="p-6 max-w-6xl mx-auto flex flex-col justify-center items-center">
-      <div className="p-2 flex space-x-2 text-md border border-black rounded-lg bg-gray-100">
+      <div className="px-5 py-1.5 flex space-x-2 text-md border border-black rounded-2xl bg-gray-100">
         <ChampionshipToggleSwitch isTeam={isTeam} setIsTeam={setIsTeam} />
         {/* Create an endpoint and generate this with the results */}
         <div className="flex pr-2 gap-1 justify-center items-center">
           <span className={`text-md`}>Season:</span>
           <select
-            className="border border-gray-400 p-1 rounded-sm text-sm"
+            className="border border-gray-400 p-1 rounded-sm text-sm hover:bg-gray-300 cursor-pointer"
             value={year}
             onChange={(e) => setYear(e.target.value)}
           >
@@ -86,7 +86,7 @@ const SeasonView = () => {
         <div className="flex pr-2 gap-1 justify-center items-center">
           <span className={`text-md`}>Start Date:</span>
           <select
-            className="border border-gray-400 p-1 rounded-sm text-sm"
+            className="border border-gray-400 p-1 rounded-sm text-sm hover:bg-gray-300 cursor-pointer"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
           >
@@ -100,7 +100,7 @@ const SeasonView = () => {
         <div className="flex gap-1 justify-center items-center">
           <span className={`text-md`}>End Date:</span>
           <select
-            className="border border-gray-400 p-1 rounded-sm text-sm"
+            className="border border-gray-400 p-1 rounded-sm text-sm hover:bg-gray-300 cursor-pointer"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
           >
@@ -111,6 +111,15 @@ const SeasonView = () => {
             ))}
           </select>
         </div>
+        <button
+          className="border border-gray-400 px-2 py-1 rounded-md text-sm hover:bg-gray-300 cursor-pointer"
+          onClick={() => {
+            setStartDate(races[0].date);
+            setEndDate(races[races.length - 1].date);
+          }}
+        >
+          Clear Dates
+        </button>
       </div>
       {processedData.raceInfo.length <= 1 ? (
         <div className="p-6">
