@@ -7,38 +7,36 @@ interface ToggleSwitchProps {
 
 function ChampionshipToggleSwitch({ isTeam, setIsTeam }: ToggleSwitchProps) {
   return (
-    <div className="p-2">
-      <div className="flex items-center space-x-2">
-        {/* Driver Text */}
+    <div className="flex justify-center items-center space-x-2 pr-2">
+      {/* Driver Text */}
+      <span
+        className={`text-md font-medium ${
+          !isTeam ? "text-black" : "text-gray-400"
+        }`}
+      >
+        Drivers
+      </span>
+      {/* Toggle Switch */}
+      <div
+        className={`relative inline-flex h-4.5 w-8 items-center rounded-full cursor-pointer transition-colors duration-300 ${
+          isTeam ? "bg-blue-500" : "bg-gray-300"
+        }`}
+        onClick={() => setIsTeam(!isTeam)}
+      >
         <span
-          className={`text-xl font-medium ${
-            !isTeam ? "text-black" : "text-gray-400"
+          className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform duration-300 ${
+            isTeam ? "translate-x-4" : "translate-x-0.5"
           }`}
-        >
-          Drivers
-        </span>
-        {/* Toggle Switch */}
-        <div
-          className={`relative inline-flex h-6 w-11 items-center rounded-full cursor-pointer transition-colors duration-200 ${
-            isTeam ? "bg-blue-500" : "bg-gray-300"
-          }`}
-          onClick={() => setIsTeam(!isTeam)}
-        >
-          <span
-            className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ${
-              isTeam ? "translate-x-6" : "translate-x-1"
-            }`}
-          />
-        </div>
-        {/* Constructor Text */}
-        <span
-          className={`text-xl font-medium ${
-            isTeam ? "text-black" : "text-gray-400"
-          }`}
-        >
-          Constructors
-        </span>
+        />
       </div>
+      {/* Constructor Text */}
+      <span
+        className={`text-md font-medium ${
+          isTeam ? "text-black" : "text-gray-400"
+        }`}
+      >
+        Constructors
+      </span>
     </div>
   );
 }

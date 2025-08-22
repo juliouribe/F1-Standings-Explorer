@@ -62,37 +62,55 @@ const SeasonView = () => {
     return <div className="p-4 text-red-600">Error: {error.message}</div>;
 
   return (
-    <div className="p-6 max-w-6xl mx-auto flex flex-col justify-center items-center ">
-      <div className="flex space-x-4 text-md font-bold">
+    <div className="p-6 max-w-6xl mx-auto flex flex-col justify-center items-center">
+      <div className="p-2 flex space-x-2 text-md border border-black rounded-lg bg-gray-100">
         <ChampionshipToggleSwitch isTeam={isTeam} setIsTeam={setIsTeam} />
         {/* Create an endpoint and generate this with the results */}
-        <select value={year} onChange={(e) => setYear(e.target.value)}>
-          <option value={2018}>2018</option>
-          <option value={2019}>2019</option>
-          <option value={2020}>2020</option>
-          <option value={2021}>2021</option>
-          <option value={2022}>2022</option>
-          <option value={2023}>2023</option>
-          <option value={2024}>2024</option>
-          <option value={2025}>2025</option>
-        </select>
-        <select
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        >
-          {races.map((race) => (
-            <option value={race.date} key={`s${race.round}`}>
-              {buildRaceDateString(race)}
-            </option>
-          ))}
-        </select>
-        <select value={endDate} onChange={(e) => setEndDate(e.target.value)}>
-          {availableEndDates.map((race) => (
-            <option value={race.date} key={`e${race.round}`}>
-              {buildRaceDateString(race)}
-            </option>
-          ))}
-        </select>
+        <div className="flex pr-2 gap-1 justify-center items-center">
+          <span className={`text-md`}>Season:</span>
+          <select
+            className="border border-gray-400 p-1 rounded-sm text-sm"
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+          >
+            <option value={2018}>2018</option>
+            <option value={2019}>2019</option>
+            <option value={2020}>2020</option>
+            <option value={2021}>2021</option>
+            <option value={2022}>2022</option>
+            <option value={2023}>2023</option>
+            <option value={2024}>2024</option>
+            <option value={2025}>2025</option>
+          </select>
+        </div>
+        <div className="flex pr-2 gap-1 justify-center items-center">
+          <span className={`text-md`}>Start Date:</span>
+          <select
+            className="border border-gray-400 p-1 rounded-sm text-sm"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          >
+            {races.map((race) => (
+              <option value={race.date} key={`s${race.round}`}>
+                {buildRaceDateString(race)}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="flex gap-1 justify-center items-center">
+          <span className={`text-md`}>End Date:</span>
+          <select
+            className="border border-gray-400 p-1 rounded-sm text-sm"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          >
+            {availableEndDates.map((race) => (
+              <option value={race.date} key={`e${race.round}`}>
+                {buildRaceDateString(race)}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       {processedData.raceInfo.length <= 1 ? (
         <div className="p-6">
