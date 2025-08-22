@@ -65,7 +65,13 @@ const SeasonView = () => {
     <div className="p-6 max-w-6xl mx-auto flex flex-col justify-center items-center ">
       <div className="flex space-x-4 text-md font-bold">
         <ChampionshipToggleSwitch isTeam={isTeam} setIsTeam={setIsTeam} />
+        {/* Create an endpoint and generate this with the results */}
         <select value={year} onChange={(e) => setYear(e.target.value)}>
+          <option value={2018}>2018</option>
+          <option value={2019}>2019</option>
+          <option value={2020}>2020</option>
+          <option value={2021}>2021</option>
+          <option value={2022}>2022</option>
           <option value={2023}>2023</option>
           <option value={2024}>2024</option>
           <option value={2025}>2025</option>
