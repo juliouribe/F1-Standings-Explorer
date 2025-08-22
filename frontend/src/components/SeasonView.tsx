@@ -7,13 +7,16 @@ import {
   generateDriverLineChartData,
   generateConstructorLineChartData,
 } from "../utils/generateDataSets";
+import { extractYearFromISOString } from "../utils/stringUtils";
 import DriverSeasonLineGraph from "./DriverSeasonLineGraph";
 import ConstructorLineGraph from "./ConstructorLineGraph";
 import ChampionshipToggleSwitch from "./ChampionshipToggleSwitch";
 
 const SeasonView = () => {
-  const [year, setYear] = useState("2025");
   const [isTeam, setIsTeam] = useState(false);
+  const [year, setYear] = useState("2025");
+  const [startDate, setstartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const { isPending, error, data } = useQuery({
     queryKey: ["season", year],
     queryFn: () =>
@@ -47,6 +50,26 @@ const SeasonView = () => {
           <option value={2023}>2023</option>
           <option value={2024}>2024</option>
           <option value={2025}>2025</option>
+        </select>
+        <select
+          value={races[0].date}
+          onChange={(e) => setstartDate(e.target.value)}
+        >
+          {races.map((race) => (
+            <option value={race.date} key={`s${race.round}`}>
+              {race.date}
+            </option>
+          ))}
+        </select>
+        <select
+          value={races[races.length - 1].date}
+          onChange={(e) => setstartDate(e.target.value)}
+        >
+          {races.map((race) => (
+            <option value={race.date} key={`e${race.round}`}>
+              {race.date}
+            </option>
+          ))}
         </select>
       </div>
       {isTeam ? (
