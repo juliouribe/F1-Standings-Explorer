@@ -73,7 +73,7 @@ class RaceResult(models.Model):
         default="finished",
         choices=FINISHED_STATUS_CHOICES,
     )
-    points = models.PositiveIntegerField(default=0)
+    points = models.DecimalField(max_digits=3, decimal_places=1, default=0)
 
     class Meta:
         # Ensure unique positions per grand prix
