@@ -12,11 +12,11 @@ const SeasonTable = ({ processedData }: { processedData: ProcessedData }) => {
               <th className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Pos.
               </th>
-              <th className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-2 py-2 text-center text-xs font-medium text-gray-500 uppercase">
                 Driver
               </th>
               {raceInfo.map((race) => (
-                <th className="px-2 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-2 py-2 text-xs text-center font-medium text-gray-500 uppercase tracking-wider">
                   {race.acronym}
                 </th>
               ))}
