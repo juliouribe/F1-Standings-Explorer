@@ -60,16 +60,16 @@ function calculateStandings(
       const constructor = result.constructor.name;
       positionMatrix[driverID][idx] = result.finish_position;
       const prevTotal = idx > 0 ? cumulativeMatrix[driverID][idx - 1] : 0;
-      cumulativeMatrix[driverID][idx] = prevTotal + result.points;
+      cumulativeMatrix[driverID][idx] = prevTotal + +result.points;
       driverSeen[driverID] = true;
 
       // First time we see a team, we grab prev total. Second go, update current
       if (teamSeen[constructor]) {
-        constructorMatrix[constructor][idx] += result.points;
+        constructorMatrix[constructor][idx] += +result.points;
       } else {
         const prevTeamTotal =
           idx > 0 ? constructorMatrix[constructor][idx - 1] : 0;
-        constructorMatrix[constructor][idx] = prevTeamTotal + result.points;
+        constructorMatrix[constructor][idx] = prevTeamTotal + +result.points;
         teamSeen[constructor] = true;
       }
     }
