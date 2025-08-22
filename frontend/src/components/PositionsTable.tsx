@@ -1,6 +1,10 @@
 import type { ProcessedData } from "@/types";
 
-const SeasonTable = ({ processedData }: { processedData: ProcessedData }) => {
+const PositionsTable = ({
+  processedData,
+}: {
+  processedData: ProcessedData;
+}) => {
   const { raceInfo, drivers, sortedDrivers, positionPerRace } = processedData;
 
   return (
@@ -59,4 +63,4 @@ const SeasonTable = ({ processedData }: { processedData: ProcessedData }) => {
   );
 };
 
-export default SeasonTable;
+export default PositionsTable;

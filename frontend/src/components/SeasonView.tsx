@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import type { GrandPrix } from "@/types";
 import { useQuery } from "@tanstack/react-query";
-import SeasonTable from "./SeasonTable";
+import PositionsTable from "./PositionsTable";
 import calculateStandings from "../utils/calcuateStandings";
 import {
   generateDriverLineChartData,
@@ -60,7 +60,7 @@ const SeasonView = () => {
           year={year}
         />
       )}
-      <SeasonTable processedData={processedData} />
+      <PositionsTable processedData={processedData} />
     </div>
   );
 };
