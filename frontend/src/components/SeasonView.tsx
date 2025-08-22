@@ -36,6 +36,14 @@ const SeasonView = () => {
     }
   }, [races]);
 
+  // Filter end date options to only show dates after the startDate.
+  const availableEndDates = useMemo(() => {
+    if (!startDate) return races;
+
+    const startIndex = races.findIndex((race) => race.date === startDate);
+    return startIndex >= 0 ? races.slice(startIndex) : races;
+  }, [races, startDate]);
+
   const processedData = useMemo(
     () => calculateStandings(races, startDate, endDate),
     [races, startDate, endDate]
@@ -73,14 +81,19 @@ const SeasonView = () => {
           ))}
         </select>
         <select value={endDate} onChange={(e) => setEndDate(e.target.value)}>
-          {races.map((race) => (
+          {availableEndDates.map((race) => (
             <option value={race.date} key={`e${race.round}`}>
               {buildRaceDateString(race)}
             </option>
           ))}
         </select>
       </div>
-      {isTeam ? (
+      {processedData.raceInfo.length <= 1 ? (
+        <div className="p-6">
+          To render line graphs, select date ranges containing at least two
+          races.
+        </div>
+      ) : isTeam ? (
         <ConstructorLineGraph
           constructorLineGraphData={constructorLineGraphData}
           year={year}
