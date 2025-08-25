@@ -1,6 +1,6 @@
 import type { ProcessedData } from "@/types";
 
-const PositionsTable = ({
+const DriverPositionsTable = ({
   processedData,
 }: {
   processedData: ProcessedData;
@@ -109,4 +109,4 @@ const PositionsTable = ({
   );
 };
 
-export default PositionsTable;
+export default DriverPositionsTable;
