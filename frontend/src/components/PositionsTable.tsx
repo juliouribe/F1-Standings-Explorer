@@ -5,7 +5,7 @@ const PositionsTable = ({
 }: {
   processedData: ProcessedData;
 }) => {
-  const { raceInfo, drivers, sortedDrivers, positionPerRace } = processedData;
+  const { raceInfo, sortedDrivers, positionPerRace } = processedData;
 
   // Get background color based on finishing position (Wikipedia F1 style)
   const getPositionColor = (position: string | number) => {
@@ -48,6 +48,9 @@ const PositionsTable = ({
                 <th className="px-2 py-1 text-left font-bold text-gray-800 border-r border-gray-400 min-w-[120px]">
                   Driver
                 </th>
+                <th className="px-2 py-1 text-left font-bold text-gray-800 border-r border-gray-400 min-w-[120px]">
+                  Constructor
+                </th>
                 {raceInfo.map((race, idx) => (
                   <th
                     className="px-1 py-1 text-center font-bold text-gray-800 border-r border-gray-400 w-8"
@@ -73,10 +76,14 @@ const PositionsTable = ({
                       {idx + 1}
                     </td>
                     <td className="px-2 py-1 text-left font-medium text-gray-900 border-r border-gray-300">
-                      {drivers[driver] || "N/A"}
+                      {driver.short_name}
+                    </td>
+                    <td className="px-2 py-1 text-left font-medium text-gray-900 border-r border-gray-300">
+                      {driver.constructor}
                     </td>
                     {raceInfo.map((_, raceIdx) => {
-                      const position = positionPerRace[driver][raceIdx];
+                      const position =
+                        positionPerRace[driver.short_name][raceIdx];
                       const bgColor = getPositionColor(position);
 
                       return (
@@ -89,7 +96,7 @@ const PositionsTable = ({
                       );
                     })}
                     <td className="px-2 py-1 text-center font-bold text-gray-900">
-                      {positionPerRace[driver][raceInfo.length] || 0}
+                      {positionPerRace[driver.short_name][raceInfo.length] || 0}
                     </td>
                   </tr>
                 );

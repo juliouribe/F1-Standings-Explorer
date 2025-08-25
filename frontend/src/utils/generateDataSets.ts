@@ -1,3 +1,5 @@
+import type { DriverInfo, ProcessedData } from "@/types";
+
 function getLineGraphColor(idx: number, alpha = 1) {
   const colors = [
     `rgba(255, 99, 132, ${alpha})`, // Red
@@ -15,16 +17,15 @@ function getLineGraphColor(idx: number, alpha = 1) {
 }
 
 export function generateDriverLineChartData(
-  processedData: Record<string, any>
+  processedData: ProcessedData
 ): Record<string, any> {
-  const drivers: string[] = processedData.sortedDrivers;
-  const datasets = drivers.map((driverId, idx) => ({
-    label: driverId,
-    data: processedData.cumulativePoints[driverId],
-    fullName: processedData.drivers[driverId],
+  const drivers: DriverInfo[] = processedData.sortedDrivers;
+  const datasets = drivers.map((driver, idx) => ({
+    label: driver.short_name,
+    data: processedData.cumulativePoints[driver.short_name],
+    fullName: processedData.drivers[driver.short_name],
     borderColor: getLineGraphColor(idx),
     backgroundColor: getLineGraphColor(idx, 0.1),
-    fill: true,
     tension: 0.1,
   }));
 
@@ -35,7 +36,7 @@ export function generateDriverLineChartData(
 }
 
 export function generateConstructorLineChartData(
-  processedData: Record<string, any>
+  processedData: ProcessedData
 ): Record<string, any> {
   const constructors: string[] = processedData.sortedConstructors;
   const datasets = constructors.map((constructor, idx) => ({
@@ -44,7 +45,6 @@ export function generateConstructorLineChartData(
     fullName: constructor,
     borderColor: getLineGraphColor(idx),
     backgroundColor: getLineGraphColor(idx, 0.1),
-    fill: true,
     tension: 0.1,
   }));
 

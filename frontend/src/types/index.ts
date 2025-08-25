@@ -40,10 +40,16 @@ export interface SummaryResults {
   [driver_name: string]: DriverSummary[];
 }
 
+export interface DriverInfo {
+  short_name: string;
+  full_name: string;
+  constructor: string;
+}
+
 export interface ProcessedData {
   raceLabels: string[];
   raceInfo: Record<string, any>[];
-  sortedDrivers: string[];
+  sortedDrivers: DriverInfo[];
   drivers: Record<string, string>;
   positionPerRace: Record<string, number[]>;
   cumulativePoints: Record<string, number[]>;

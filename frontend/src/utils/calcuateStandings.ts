@@ -1,4 +1,4 @@
-import type { GrandPrix, ProcessedData } from "@/types";
+import type { DriverInfo, GrandPrix, ProcessedData } from "@/types";
 import { abbreviateGrandPrixName, isDateBetween } from "./stringUtils";
 
 function calculateStandings(
@@ -7,6 +7,7 @@ function calculateStandings(
   end: string
 ): ProcessedData {
   const driverNameMap: Record<string, string> = {};
+  const driverInfo: DriverInfo[] = [];
   const constructorMap = new Set<string>();
   const raceLabels = [];
   const raceInfo: Record<string, any>[] = [];
@@ -25,7 +26,15 @@ function calculateStandings(
     raceLabels.push(acronym);
 
     race.race_results.forEach((result) => {
-      driverNameMap[result.driver.short_name] = result.driver.name;
+      if (!(result.driver.short_name in driverNameMap)) {
+        driverNameMap[result.driver.short_name] = result.driver.name;
+        driverInfo.push({
+          short_name: result.driver.short_name,
+          full_name: result.driver.name,
+          constructor: result.constructor.name,
+        });
+      } else {
+      }
       constructorMap.add(result.constructor.name);
     });
   }
@@ -84,9 +93,11 @@ function calculateStandings(
   }
 
   // Sort drivers and teams from first to last in standings, descending order.
-  const sortedDrivers = Object.keys(driverNameMap).sort((a, b) => {
-    const totalA = cumulativeMatrix[a][cumulativeMatrix[a].length - 1];
-    const totalB = cumulativeMatrix[b][cumulativeMatrix[b].length - 1];
+  const sortedDrivers = driverInfo.sort((a, b) => {
+    const totalA =
+      cumulativeMatrix[a.short_name][cumulativeMatrix[a.short_name].length - 1];
+    const totalB =
+      cumulativeMatrix[b.short_name][cumulativeMatrix[b.short_name].length - 1];
     return totalB - totalA;
   });
   const sortedConstructors = [...constructorMap].sort((a, b) => {
