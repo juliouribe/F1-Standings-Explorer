@@ -76,7 +76,7 @@ const PositionsTable = ({
                       {idx + 1}
                     </td>
                     <td className="px-2 py-1 text-left font-medium text-gray-900 border-r border-gray-300">
-                      {driver.short_name}
+                      {driver.full_name}
                     </td>
                     <td className="px-2 py-1 text-left font-medium text-gray-900 border-r border-gray-300">
                       {driver.constructor}
