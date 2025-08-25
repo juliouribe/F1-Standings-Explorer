@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { GrandPrix } from "@/types";
 import { useQuery } from "@tanstack/react-query";
+import ConstructorPositionsTable from "./ConstructorPositionsTable";
 import DriverPositionsTable from "./DriverPositionsTable";
 import calculateStandings from "../utils/calcuateStandings";
 import {
@@ -137,7 +138,11 @@ const SeasonView = () => {
           year={year}
         />
       )}
-      <DriverPositionsTable processedData={processedData} />
+      {isTeam ? (
+        <ConstructorPositionsTable processedData={processedData} />
+      ) : (
+        <DriverPositionsTable processedData={processedData} />
+      )}
     </div>
   );
 };
