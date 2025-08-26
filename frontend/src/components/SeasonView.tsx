@@ -91,8 +91,8 @@ const SeasonView = () => {
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
           >
-            {races.map((race) => (
-              <option value={race.date} key={`s${race.round}`}>
+            {races.map((race, idx) => (
+              <option value={race.date} key={`s${race.round}${idx}`}>
                 {buildRaceDateString(race)}
               </option>
             ))}
@@ -105,8 +105,8 @@ const SeasonView = () => {
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
           >
-            {availableEndDates.map((race) => (
-              <option value={race.date} key={`e${race.round}`}>
+            {availableEndDates.map((race, idx) => (
+              <option value={race.date} key={`e${race.round}${idx}`}>
                 {buildRaceDateString(race)}
               </option>
             ))}

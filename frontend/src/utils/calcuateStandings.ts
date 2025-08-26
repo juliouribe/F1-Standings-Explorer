@@ -17,11 +17,15 @@ function calculateStandings(
   );
   // Iterate over races and find how many races and drivers there are.
   for (const race of racesFiltered) {
-    const acronym = abbreviateGrandPrixName(race.name);
+    let acronym = abbreviateGrandPrixName(race.name);
+    if (race.is_sprint) {
+      acronym += "-S";
+    }
     raceInfo.push({
       round: race.round,
       name: race.race_track.name,
       acronym: acronym,
+      is_sprint: race.is_sprint,
     });
     raceLabels.push(acronym);
 

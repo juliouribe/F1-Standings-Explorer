@@ -51,7 +51,6 @@ const ConstructorPositionsTable = ({
         return "bg-violet-200"; // Violet for non-points
     }
   };
-  console.log(sortedConstructors);
 
   return (
     <>
@@ -64,7 +63,10 @@ const ConstructorPositionsTable = ({
           <table className="min-w-full bg-white border-2 border-gray-400 text-xs">
             <thead>
               <tr className="bg-gray-200 border-b-2 border-gray-400">
-                <th className="px-1 py-1 text-center font-bold text-gray-800 border-r border-gray-400 w-8">
+                <th
+                  className="px-1 py-1 text-center font-bold text-gray-800 border-r border-gray-400 w-8"
+                  title="Position"
+                >
                   Pos
                 </th>
                 <th className="px-2 py-1 text-left font-bold text-gray-800 border-r border-gray-400 min-w-[120px]">

@@ -42,7 +42,10 @@ const DriverPositionsTable = ({
           <table className="min-w-full bg-white border-2 border-gray-400 text-xs">
             <thead>
               <tr className="bg-gray-200 border-b-2 border-gray-400">
-                <th className="px-1 py-1 text-center font-bold text-gray-800 border-r border-gray-400 w-8">
+                <th
+                  className="px-1 py-1 text-center font-bold text-gray-800 border-r border-gray-400 w-8"
+                  title="Position"
+                >
                   Pos
                 </th>
                 <th className="px-2 py-1 text-left font-bold text-gray-800 border-r border-gray-400 min-w-[120px]">
@@ -55,7 +58,9 @@ const DriverPositionsTable = ({
                   <th
                     className="px-1 py-1 text-center font-bold text-gray-800 border-r border-gray-400 w-8"
                     key={`header${idx}`}
-                    title={race.name || race.acronym}
+                    title={
+                      race.is_sprint ? `Sprint Race at ${race.name}` : race.name
+                    }
                   >
                     {race.acronym}
                   </th>
@@ -81,14 +86,14 @@ const DriverPositionsTable = ({
                     <td className="px-2 py-1 text-left font-medium text-gray-900 border-r border-gray-300">
                       {driver.constructor}
                     </td>
-                    {raceInfo.map((_, raceIdx) => {
+                    {raceInfo.map((race, raceIdx) => {
                       const position =
                         positionPerRace[driver.short_name][raceIdx];
                       const bgColor = getPositionColor(position);
 
                       return (
                         <td
-                          key={`pos${raceIdx}`}
+                          key={`pos${race.acronym}${raceIdx}`}
                           className={`px-1 py-1 text-center border-r border-gray-300 text-gray-800 ${bgColor}`}
                         >
                           {position || ""}
