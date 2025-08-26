@@ -29,6 +29,7 @@ export interface GrandPrix {
   date: string;
   race_track: RaceTrack;
   race_results: RaceResult[];
+  is_sprint: boolean;
 }
 
 export interface DriverSummary {
