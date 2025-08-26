@@ -1,5 +1,8 @@
 import { Line } from "react-chartjs-2";
 import "../chartConfig.js";
+import { useEffect, useState } from "react";
+import { MEDIUM_SIZED_SCREEN } from "../constants/screenSize.js";
+import type { LegendPosition } from "@/types";
 
 interface ConstructorSeasonLineGraphProps {
   constructorLineGraphData: Record<string, any>;
@@ -10,6 +13,22 @@ const ConstructorSeasonLineGraph = ({
   constructorLineGraphData,
   year,
 }: ConstructorSeasonLineGraphProps) => {
+  const [legendPosition, setLegendPosition] = useState<LegendPosition>("left");
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < MEDIUM_SIZED_SCREEN) {
+        setLegendPosition("bottom");
+      } else {
+        setLegendPosition("left");
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   const title = `Constructor's Championship ${year}`;
 
   const data = {
@@ -20,7 +39,7 @@ const ConstructorSeasonLineGraph = ({
   const options = {
     responsive: true,
     plugins: {
-      legend: { position: "left" as const },
+      legend: { position: legendPosition },
       title: {
         display: true,
         text: title,
