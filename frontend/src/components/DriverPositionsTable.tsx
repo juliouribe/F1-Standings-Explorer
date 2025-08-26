@@ -38,7 +38,7 @@ const DriverPositionsTable = ({
           No race results found
         </div>
       ) : (
-        <div className="w-full">
+        <div className="w-fit max-w-full">
           {/* Mobile scroll hint */}
           <div className="md:hidden text-xs text-gray-600 mb-2 text-center">
             ← Scroll horizontally to see all races →
