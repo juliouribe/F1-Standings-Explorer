@@ -54,10 +54,10 @@ const DriverPositionsTable = ({
                     >
                       Pos
                     </th>
-                    <th className="px-2 py-1 text-left font-bold text-gray-800 border-r border-gray-400 min-w-[120px] w-36 sticky left-8 bg-gray-200 z-20">
+                    <th className="px-2 py-1 text-left font-bold text-gray-800 border-r border-gray-400 min-w-[120px] w-28 sticky left-8 bg-gray-200 z-20">
                       Driver
                     </th>
-                    <th className="px-2 py-1 text-left font-bold text-gray-800 border-r border-gray-400 min-w-[120px] w-36 sticky left-44 bg-gray-200 z-20">
+                    <th className="px-2 py-1 text-left font-bold text-gray-800 border-r border-gray-400 min-w-[120px] w-28 sticky left-36 bg-gray-200 z-20">
                       Constructor
                     </th>
                     {raceInfo.map((race, idx) => (
@@ -75,7 +75,7 @@ const DriverPositionsTable = ({
                         </div>
                       </th>
                     ))}
-                    <th className="px-2 py-1 text-center font-bold text-gray-800 w-12 min-w-[48px]">
+                    <th className="px-2 py-1 text-center font-bold text-gray-800 w-8 min-w-[36px]">
                       Pts
                     </th>
                   </tr>
@@ -93,7 +93,7 @@ const DriverPositionsTable = ({
                         <td className="px-2 py-1 text-left font-medium text-gray-900 border-r border-gray-300 sticky left-8 bg-white z-10">
                           <div className="truncate">{driver.full_name}</div>
                         </td>
-                        <td className="px-2 py-1 text-left font-medium text-gray-900 border-r border-gray-300 sticky left-44 bg-white z-10">
+                        <td className="px-2 py-1 text-left font-medium text-gray-900 border-r border-gray-300 sticky left-36 bg-white z-10">
                           <div className="truncate">{driver.constructor}</div>
                         </td>
                         {raceInfo.map((race, raceIdx) => {
@@ -110,7 +110,7 @@ const DriverPositionsTable = ({
                             </td>
                           );
                         })}
-                        <td className="px-2 py-1 text-center font-bold text-gray-900">
+                        <td className="px-1 py-1 text-center font-bold text-gray-900">
                           {positionPerRace[driver.short_name][
                             raceInfo.length
                           ] || 0}

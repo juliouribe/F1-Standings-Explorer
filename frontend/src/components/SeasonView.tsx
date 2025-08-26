@@ -73,7 +73,7 @@ const SeasonView = () => {
     return <div className="p-4 text-red-600">Error: {error.message}</div>;
 
   return (
-    <div className="p-6 max-w-6xl mx-auto flex flex-col justify-center items-center">
+    <div className="p-6 max-w-19/20 mx-auto flex flex-col justify-center items-center">
       <div className="px-5 py-1.5 flex flex-col md:flex-row items-start space-x-1 md:space-x-2 gap-3 text-md border border-black rounded-2xl bg-gray-100">
         <ChampionshipToggleSwitch isTeam={isTeam} setIsTeam={setIsTeam} />
         <div className="flex gap-1 justify-center items-center">

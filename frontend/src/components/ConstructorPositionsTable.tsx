@@ -70,15 +70,15 @@ const ConstructorPositionsTable = ({
                 <thead>
                   <tr className="bg-gray-200 border-b-2 border-gray-400 sticky top-0 z-10">
                     <th
-                      className="px-1 py-1 text-center font-bold text-gray-800 border-r border-gray-400 w-8 min-w-[36px] sticky left-0 bg-gray-200 z-20"
+                      className="px-1 py-1 text-center font-bold text-gray-800 border-r border-gray-400 w-8 min-w-[32px] sticky left-0 bg-gray-200 z-20"
                       title="Position"
                     >
                       Pos
                     </th>
-                    <th className="px-2 py-1 text-left font-bold text-gray-800 border-r border-gray-400 min-w-[120px] w-36 sticky left-8 bg-gray-200 z-20">
+                    <th className="px-2 py-1 text-left font-bold text-gray-800 border-r border-gray-400 min-w-[120px] w-28 sticky left-8 bg-gray-200 z-20">
                       Constructor
                     </th>
-                    <th className="px-2 py-1 text-left font-bold text-gray-800 border-r border-gray-400 min-w-[120px] w-36 sticky left-44 bg-gray-200 z-20">
+                    <th className="px-2 py-1 text-left font-bold text-gray-800 border-r border-gray-400 min-w-[120px] w-28 sticky left-36 bg-gray-200 z-20">
                       Driver
                     </th>
                     {raceInfo.map((race, idx) => (
@@ -96,7 +96,7 @@ const ConstructorPositionsTable = ({
                         </div>
                       </th>
                     ))}
-                    <th className="px-2 py-1 text-center font-bold text-gray-800 w-12 min-w-[48px]">
+                    <th className="px-2 py-1 text-center font-bold text-gray-800 w-8 min-w-[36px]">
                       Pts
                     </th>
                   </tr>
@@ -132,7 +132,7 @@ const ConstructorPositionsTable = ({
                             <div className="truncate">{driver.constructor}</div>
                           </td>
                         )}
-                        <td className="px-2 py-1 text-left font-medium text-gray-900 border-r border-gray-300 sticky left-44 bg-white z-10">
+                        <td className="px-2 py-1 text-left font-medium text-gray-900 border-r border-gray-300 sticky left-36 bg-white z-10">
                           <div className="truncate">{driver.full_name}</div>
                         </td>
                         {raceInfo.map((_, raceIdx) => {
