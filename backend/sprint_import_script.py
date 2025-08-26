@@ -143,6 +143,7 @@ def write_data(parsed_data):
             print(f"❌ Request error: {e}")
         except json.JSONDecodeError:
             print("❌ Invalid JSON response")
+        time.sleep(1)
 
 
 def load_json_data(filename: str):
