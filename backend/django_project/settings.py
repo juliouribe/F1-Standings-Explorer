@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # 3rd party
     "rest_framework",
     "corsheaders",
+    "debug_toolbar",
     # Local
     "accounts",
     "drivers",
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "django_project.urls"
@@ -148,3 +150,12 @@ CORS_ALLOWED_ORIGINS = (
     "http://localhost:8000",
 )
 CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
+
+# django-debug-toolbar
+if DEBUG:
+    INTERNAL_IPS = [
+        "127.0.0.1",
+        "localhost",
+        "0.0.0.0",
+        "192.168.65.1",  # Docker host IP
+    ]
