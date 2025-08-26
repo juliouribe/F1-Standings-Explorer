@@ -155,7 +155,10 @@ CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https://f1-standings-explorer.*\.vercel\.app$",
 ]
-CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173",
+    "https://f1-standings-explorer.vercel.app",
+]
 
 # django-debug-toolbar
 if DEBUG:
