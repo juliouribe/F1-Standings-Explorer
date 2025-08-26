@@ -74,9 +74,9 @@ const SeasonView = () => {
 
   return (
     <div className="p-6 max-w-6xl mx-auto flex flex-col justify-center items-center">
-      <div className="px-5 py-1.5 flex space-x-2 text-md border border-black rounded-2xl bg-gray-100">
+      <div className="px-5 py-1.5 flex flex-col md:flex-row items-start space-x-1 md:space-x-2 gap-3 text-md border border-black rounded-2xl bg-gray-100">
         <ChampionshipToggleSwitch isTeam={isTeam} setIsTeam={setIsTeam} />
-        <div className="flex pr-2 gap-1 justify-center items-center">
+        <div className="flex gap-1 justify-center items-center">
           <span className={`text-md`}>Season:</span>
           <select
             className="border border-gray-400 p-1 rounded-sm text-sm hover:bg-gray-300 cursor-pointer"
@@ -90,7 +90,7 @@ const SeasonView = () => {
             ))}
           </select>
         </div>
-        <div className="flex pr-2 gap-1 justify-center items-center">
+        <div className="flex gap-1 justify-center items-center">
           <span className={`text-md`}>Start Date:</span>
           <select
             className="border border-gray-400 p-1 rounded-sm text-sm hover:bg-gray-300 cursor-pointer"
