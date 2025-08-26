@@ -57,3 +57,5 @@ export interface ProcessedData {
   sortedConstructors: string[];
   constructorPoints: Record<string, number[]>;
 }
+
+export type LegendPosition = "left" | "right" | "bottom" | "top";
