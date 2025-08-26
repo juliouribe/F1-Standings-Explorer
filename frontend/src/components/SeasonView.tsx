@@ -76,7 +76,6 @@ const SeasonView = () => {
     <div className="p-6 max-w-6xl mx-auto flex flex-col justify-center items-center">
       <div className="px-5 py-1.5 flex space-x-2 text-md border border-black rounded-2xl bg-gray-100">
         <ChampionshipToggleSwitch isTeam={isTeam} setIsTeam={setIsTeam} />
-        {/* Create an endpoint to generate this programmatically */}
         <div className="flex pr-2 gap-1 justify-center items-center">
           <span className={`text-md`}>Season:</span>
           <select
