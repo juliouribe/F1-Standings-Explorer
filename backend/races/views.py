@@ -42,7 +42,11 @@ class GrandPrixSearchView(generics.ListAPIView):
     serializer_class = GrandPrixBySeasonSerializer
 
     def get_queryset(self):
-        queryset = GrandPrix.objects.all().order_by("date")
+        queryset = (
+            GrandPrix.objects.select_related("race_track")
+            .prefetch_related("race_results__driver", "race_results__constructor")
+            .order_by("date")
+        )
         year = self.request.GET.get("year")
 
         if year is not None:
