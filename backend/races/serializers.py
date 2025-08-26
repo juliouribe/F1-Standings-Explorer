@@ -56,6 +56,7 @@ class GrandPrixSerializer(serializers.ModelSerializer):
             "race_track_details",
             "race_results",
             "race_result_details",
+            "is_sprint",
         )
         validators = []
 
@@ -77,6 +78,7 @@ class GrandPrixSerializer(serializers.ModelSerializer):
             round=validated_data.get("round"),
             name=validated_data.get("name"),
             date=validated_data.get("date"),
+            is_sprint=validated_data.get("is_sprint", False),
             defaults=validated_data,
         )
 

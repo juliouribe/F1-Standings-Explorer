@@ -7,7 +7,7 @@ FINISHED_STATUS_CHOICES = [
     ("Finished", "Finished the race"),
     ("Lapped", "Finished at least one lap behind"),
     ("Retired", "Did not finish the race for whatever reason"),
-    ("M" "echanical", "Mechanical failure"),
+    ("Mechanical", "Mechanical failure"),
 ]
 
 
@@ -37,7 +37,7 @@ class GrandPrix(models.Model):
         verbose_name = "Grand prix"
         verbose_name_plural = "Grand prix"
         unique_together = [
-            ("race_track", "date"),
+            ("race_track", "date", "is_sprint"),
         ]
 
     def __str__(self):
@@ -78,7 +78,6 @@ class RaceResult(models.Model):
     class Meta:
         # Ensure unique positions per grand prix
         unique_together = [
-            ("grand_prix", "start_position"),
             ("grand_prix", "finish_position"),
         ]
         # Ensure each driver only appears once per grand prix
