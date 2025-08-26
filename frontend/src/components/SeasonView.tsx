@@ -30,6 +30,16 @@ const SeasonView = () => {
   });
   const races = (data as GrandPrix[]) || [];
 
+  const { data: seasonData } = useQuery({
+    queryKey: ["season"],
+    queryFn: () =>
+      fetch(`http://127.0.0.1:8000/api/races/seasons/`).then((res) => {
+        if (!res.ok) throw new Error(`HTTP error! status ${res.status}`);
+        return res.json();
+      }),
+  });
+  const seasons = (seasonData as string[]) || [];
+
   useEffect(() => {
     if (races.length > 0) {
       setStartDate(races[0].date);
@@ -74,14 +84,11 @@ const SeasonView = () => {
             value={year}
             onChange={(e) => setYear(e.target.value)}
           >
-            <option value={2018}>2018</option>
-            <option value={2019}>2019</option>
-            <option value={2020}>2020</option>
-            <option value={2021}>2021</option>
-            <option value={2022}>2022</option>
-            <option value={2023}>2023</option>
-            <option value={2024}>2024</option>
-            <option value={2025}>2025</option>
+            {seasons.map((season) => (
+              <option key={`dropdown${season}`} value={season}>
+                {season}
+              </option>
+            ))}
           </select>
         </div>
         <div className="flex pr-2 gap-1 justify-center items-center">
