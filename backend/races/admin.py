@@ -9,8 +9,13 @@ class RaceTrackAdmin(admin.ModelAdmin):
 
 
 class GrandPrixAdmin(admin.ModelAdmin):
-    list_display = ["date", "race_track"]
-    search_fields = ["date", "race_track"]
+    list_display = ["date", "race_track", "is_sprint"]
+    search_fields = [
+        "date",
+        "race_track",
+        "name",
+        "is_sprint",
+    ]
 
 
 class RaceResultAdmin(admin.ModelAdmin):
