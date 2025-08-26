@@ -91,11 +91,13 @@ const SeasonView = () => {
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
           >
-            {races.map((race, idx) => (
-              <option value={race.date} key={`s${race.round}${idx}`}>
-                {buildRaceDateString(race)}
-              </option>
-            ))}
+            {races
+              .filter((race) => !race.is_sprint)
+              .map((race, idx) => (
+                <option value={race.date} key={`s${race.round}${idx}`}>
+                  {buildRaceDateString(race)}
+                </option>
+              ))}
           </select>
         </div>
         <div className="flex gap-1 justify-center items-center">
@@ -105,11 +107,13 @@ const SeasonView = () => {
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
           >
-            {availableEndDates.map((race, idx) => (
-              <option value={race.date} key={`e${race.round}${idx}`}>
-                {buildRaceDateString(race)}
-              </option>
-            ))}
+            {availableEndDates
+              .filter((race) => !race.is_sprint)
+              .map((race, idx) => (
+                <option value={race.date} key={`e${race.round}${idx}`}>
+                  {buildRaceDateString(race)}
+                </option>
+              ))}
           </select>
         </div>
         <button
