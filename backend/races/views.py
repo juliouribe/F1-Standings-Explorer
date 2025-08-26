@@ -1,8 +1,9 @@
-from rest_framework import generics, status
+from rest_framework import generics
 from rest_framework.response import Response
-from django.db.models import Q
+from rest_framework.views import APIView
+from django.db.models.functions import Extract
 
-from .models import GrandPrix, RaceResult, RaceTrack
+from .models import GrandPrix, RaceTrack
 from .serializers import (
     GrandPrixSerializer,
     RaceTrackSerializer,
@@ -52,3 +53,15 @@ class GrandPrixSearchView(generics.ListAPIView):
                 return GrandPrix.objects.none()
 
         return queryset
+
+
+class SeasonsAPIView(APIView):
+    def get(self, request):
+        years = (
+            GrandPrix.objects.annotate(year=Extract("date", "year"))
+            .values_list("year", flat=True)
+            .distinct()
+            .order_by("year")
+        )
+
+        return Response(list(years))
