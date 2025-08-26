@@ -12,6 +12,7 @@ import { buildRaceDateString } from "../utils/stringUtils";
 import DriverSeasonLineGraph from "./DriverSeasonLineGraph";
 import ConstructorLineGraph from "./ConstructorLineGraph";
 import ChampionshipToggleSwitch from "./ChampionshipToggleSwitch";
+import { API_BASE_URL } from "../constants/urls";
 
 const SeasonView = () => {
   const [isTeam, setIsTeam] = useState(false);
@@ -21,19 +22,19 @@ const SeasonView = () => {
   const { isPending, error, data } = useQuery({
     queryKey: ["season", year],
     queryFn: () =>
-      fetch(
-        `http://127.0.0.1:8000/api/races/grand_prix/search/?year=${year}`
-      ).then((res) => {
-        if (!res.ok) throw new Error(`HTTP error! status ${res.status}`);
-        return res.json();
-      }),
+      fetch(`${API_BASE_URL}/api/races/grand_prix/search/?year=${year}`).then(
+        (res) => {
+          if (!res.ok) throw new Error(`HTTP error! status ${res.status}`);
+          return res.json();
+        }
+      ),
   });
   const races = (data as GrandPrix[]) || [];
 
   const { data: seasonData } = useQuery({
     queryKey: ["season"],
     queryFn: () =>
-      fetch(`http://127.0.0.1:8000/api/races/seasons/`).then((res) => {
+      fetch(`${API_BASE_URL}/api/races/seasons/`).then((res) => {
         if (!res.ok) throw new Error(`HTTP error! status ${res.status}`);
         return res.json();
       }),

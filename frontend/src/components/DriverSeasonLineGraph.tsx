@@ -1,7 +1,7 @@
 import { Line } from "react-chartjs-2";
 import "../chartConfig.js";
 import { useEffect, useState } from "react";
-import { MEDIUM_SIZED_SCREEN } from "../constants/screenSize.js";
+import { MEDIUM_SIZED_SCREEN } from "../constants/screenSize";
 import type { LegendPosition } from "@/types";
 
 interface DriverSeasonLineGraphProps {
