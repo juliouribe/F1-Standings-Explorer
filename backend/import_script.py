@@ -94,7 +94,9 @@ def parse_data(races) -> list:
                         + " "
                         + driver_info.get("familyName", ""),
                         "dob": driver_info.get("dateOfBirth"),
-                        "short_name": driver_info.get("code"),
+                        "short_name": driver_info.get(
+                            "code", driver_info.get("familyName", "UKN")
+                        )[:3],
                     },
                     "constructor": {
                         "name": result.get("Constructor", {}).get("name", "")
