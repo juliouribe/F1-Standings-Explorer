@@ -1,11 +1,14 @@
-import { useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { API_BASE_URL } from "../constants/urls";
 
-const SeasonSelector = () => {
-  const [year, setYear] = useState("2025");
+interface SeasonSelectorProps {
+  year: string;
+  setYear: Dispatch<SetStateAction<string>>;
+}
 
-  const { data: seasonData } = useQuery({
+const SeasonSelector = ({ year, setYear }: SeasonSelectorProps) => {
+  const { data } = useQuery({
     queryKey: ["season"],
     queryFn: () =>
       fetch(`${API_BASE_URL}/api/races/seasons/`).then((res) => {
@@ -13,7 +16,7 @@ const SeasonSelector = () => {
         return res.json();
       }),
   });
-  const seasons = (seasonData as string[]) || [];
+  const seasons = (data as string[]) || [];
 
   return (
     <div className="flex gap-1 justify-center items-center">

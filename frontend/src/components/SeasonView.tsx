@@ -32,16 +32,6 @@ const SeasonView = () => {
   });
   const races = (data as GrandPrix[]) || [];
 
-  const { data: seasonData } = useQuery({
-    queryKey: ["season"],
-    queryFn: () =>
-      fetch(`${API_BASE_URL}/api/races/seasons/`).then((res) => {
-        if (!res.ok) throw new Error(`HTTP error! status ${res.status}`);
-        return res.json();
-      }),
-  });
-  const seasons = (seasonData as string[]) || [];
-
   useEffect(() => {
     if (races.length > 0) {
       setStartDate(races[0].date);
@@ -81,7 +71,7 @@ const SeasonView = () => {
     >
       <div className="px-5 py-1.5 flex flex-col md:flex-row items-start md:items-center space-x-1 md:space-x-2 gap-3 text-md border border-black rounded-2xl bg-gray-100">
         <ChampionshipToggleSwitch isTeam={isTeam} setIsTeam={setIsTeam} />
-        <SeasonSelector />
+        <SeasonSelector year={year} setYear={setYear} />
         <div className="flex gap-1 justify-center items-center">
           <span className={`text-md`}>Start Date:</span>
           <select
