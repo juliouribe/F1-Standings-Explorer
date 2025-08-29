@@ -21,7 +21,7 @@ const SeasonView = () => {
   const [year, setYear] = useState("2025");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  
+
   const { isPending, error, data } = useQuery({
     queryKey: ["season", year],
     queryFn: () =>
@@ -31,6 +31,8 @@ const SeasonView = () => {
           return res.json();
         }
       ),
+    staleTime: 60 * 60 * 1000, // Considered 'fresh' for 1 hour.
+    gcTime: 60 * 60 * 1000 * 2, // Garbage collection doesn't kick in for two hours.
   });
   const races = (data as GrandPrix[]) || [];
 

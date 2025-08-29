@@ -15,6 +15,8 @@ const SeasonSelector = ({ year, setYear }: SeasonSelectorProps) => {
         if (!res.ok) throw new Error(`HTTP error! status ${res.status}`);
         return res.json();
       }),
+    staleTime: 60 * 60 * 1000, // Considered 'fresh' for 1 hour.
+    gcTime: 60 * 60 * 1000 * 2, // Garbage collection doesn't kick in for two hours.
   });
   const seasons = (data as string[]) || [];
 
