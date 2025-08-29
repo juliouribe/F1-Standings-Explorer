@@ -13,6 +13,7 @@ import DriverSeasonLineGraph from "./DriverSeasonLineGraph";
 import ConstructorLineGraph from "./ConstructorLineGraph";
 import ChampionshipToggleSwitch from "./ChampionshipToggleSwitch";
 import { API_BASE_URL } from "../constants/urls";
+import SeasonSelector from "./SeasonSelector";
 
 const SeasonView = () => {
   const [isTeam, setIsTeam] = useState(false);
@@ -80,20 +81,7 @@ const SeasonView = () => {
     >
       <div className="px-5 py-1.5 flex flex-col md:flex-row items-start md:items-center space-x-1 md:space-x-2 gap-3 text-md border border-black rounded-2xl bg-gray-100">
         <ChampionshipToggleSwitch isTeam={isTeam} setIsTeam={setIsTeam} />
-        <div className="flex gap-1 justify-center items-center">
-          <span className={`text-md`}>Season:</span>
-          <select
-            className="border border-gray-400 p-1 rounded-sm text-sm hover:bg-gray-300 cursor-pointer"
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
-          >
-            {seasons.map((season) => (
-              <option key={`dropdown${season}`} value={season}>
-                {season}
-              </option>
-            ))}
-          </select>
-        </div>
+        <SeasonSelector />
         <div className="flex gap-1 justify-center items-center">
           <span className={`text-md`}>Start Date:</span>
           <select
