@@ -14,6 +14,7 @@ import ConstructorLineGraph from "./ConstructorLineGraph";
 import ChampionshipToggleSwitch from "./ChampionshipToggleSwitch";
 import { API_BASE_URL } from "../constants/urls";
 import SeasonSelector from "./SeasonSelector";
+import ClearDatesButton from "./ClearDatesButton";
 
 const SeasonView = () => {
   const [isTeam, setIsTeam] = useState(false);
@@ -104,15 +105,11 @@ const SeasonView = () => {
               ))}
           </select>
         </div>
-        <button
-          className="border border-gray-400 px-2 py-1 rounded-md text-sm hover:bg-gray-300 cursor-pointer"
-          onClick={() => {
-            setStartDate(races[0].date);
-            setEndDate(races[races.length - 1].date);
-          }}
-        >
-          Clear Dates
-        </button>
+        <ClearDatesButton
+          races={races}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+        />
       </div>
       {processedData.raceInfo.length <= 1 ? (
         <div className="p-6">
