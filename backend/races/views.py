@@ -65,7 +65,7 @@ class SeasonsAPIView(APIView):
             GrandPrix.objects.annotate(year=Extract("date", "year"))
             .values_list("year", flat=True)
             .distinct()
-            .order_by("year")
+            .order_by("-year")
         )
 
         return Response(list(years))
