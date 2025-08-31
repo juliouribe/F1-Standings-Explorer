@@ -10,7 +10,6 @@ import argparse
 import json
 import requests
 import time
-from django.core.cache import cache
 
 BASE_URL = "http://localhost:8000"
 DRIVER_ENDPOINT = "/api/drivers/create/"
@@ -208,7 +207,6 @@ def main():
     if len(data) >= 0:
         parsed_data = parse_data(data)
         write_data(parsed_data)
-        cache.clear()
 
 
 if __name__ == "__main__":
